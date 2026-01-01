@@ -1,0 +1,40 @@
+MenuBar=Disabled
+
+[ExtractDialog]
+1440x900 screen: Window-Maximized=true
+2 screens: Window-Maximized=true
+DirHistory[$e]=/mnt/home/something/,/mnt/home/something/INSIDER/
+
+[General]
+ShowFullPathInTitlebar=true
+ShowStatusBar=Disabled
+ShowZoomSlider=true
+TerminalApplication=kitty
+Version=202
+ViewPropsTimestamp=2025,5,19,11,46,56.092
+
+[Icons]
+Theme=Tela-circle-dracula
+
+[IconsMode]
+PreviewSize=128
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=16
+
+[MainWindow]
+MenuBar=Disabled
+ToolBarsMovable=Enabled
+
+[PlacesPanel]
+IconSize=16
+
+[PreviewSettings]
+Plugins=ffmpegthumbnailer,appimagethumbnail,audiothumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,gsf-office,opendocumentthumbnail,svgthumbnail,gdk-pixbuf-thumbnailer
+
+[UiSettings]
+ColorScheme=KvMojave
+
+[ViewPropertiesDialog]
+2 screens: Window-Maximized=true
