@@ -1,0 +1,116 @@
+// Config //
+configuration {
+modi: "drun";
+font: "CaskaydiaCove Nerd Font Mono 12";
+show-icons: false;
+}
+
+@theme "~/.config/rofi/theme.rasi"
+
+// Main //
+window {
+width: 30%;
+transparency: "real";
+cursor: "Bibata-Modern-Ice";
+fullscreen: false;
+enabled: true;
+spacing: 0em;
+padding: 0em;
+border-radius: 8px;
+border-color: @main-br;
+background-color: @main-bg;
+}
+mainbox {
+enabled: true;
+spacing: 0em;
+padding: 0.5em;
+border: 2px;
+border-color: @main-br;
+border-radius: 8px;
+orientation: vertical;
+children: [ "wallbox" , "listbox" ];
+background-color: transparent;
+}
+wallbox {
+spacing: 0em;
+padding: 0em;
+expand: false;
+orientation: horizontal;
+border-radius: 8px;
+background-color: transparent;
+background-image: url("~/.cache/wall", width);
+children: [ "wallframe" , "inputbar" ];
+}
+wallframe {
+width: 5em;
+spacing: 0em;
+padding: 0em;
+expand: false;
+background-color: @main-bg;
+background-image: url("~/.cache/wall", height);
+}
+
+// Inputs //
+inputbar {
+enabled: true;
+padding: 0em;
+children: [ "entry" ];
+background-color: @main-bg;
+border-radius: 0 8px 8px 0;
+expand: true;
+}
+entry {
+placeholder: "⌨️ Keybindings";
+enabled: true;
+padding: 1.8em;
+text-color: @main-fg;
+background-color: transparent;
+}
+
+// Lists //
+listbox {
+spacing: 0em;
+padding: 0em;
+orientation: vertical;
+children: [ "dummy" , "listview" , "dummy" ];
+background-color: transparent;
+}
+listview {
+enabled: true;
+padding: 0.5em;
+columns: 1;
+lines: 8;
+cycle: true;
+fixed-height: true;
+fixed-columns: false;
+expand: false;
+cursor: "default";
+background-color: transparent;
+text-color: @main-fg;
+}
+dummy {
+spacing: 0em;
+padding: 0em;
+background-color: transparent;
+}
+
+// Elements //
+element {
+enabled: true;
+padding: 0.5em;
+cursor: pointer;
+background-color: transparent;
+text-color: @main-fg;
+}
+element selected.normal {
+background-color: @select-bg;
+border-radius: 8px;
+text-color: @select-fg;
+}
+element-text {
+vertical-align: 0.0;
+horizontal-align: 0.0;
+cursor: inherit;
+background-color: transparent;
+text-color: inherit;
+}

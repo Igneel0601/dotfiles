@@ -1,0 +1,83 @@
+/* Catppuccin Mocha Theme for Rofi */
+configuration {
+    scroll-step: 1;
+    font: "JetBrainsMono Nerd Font 12";
+    show-icons: false;
+}
+
+@theme "~/.config/rofi/theme.rasi"
+
+
+
+window {
+    width: 60%;
+    border: 2px;
+    border-radius: 12px;
+    padding: 4 0 -12 0;
+    background-color: #00000088;
+    border-color: @main-br;
+    transparency: "real";
+}
+
+mainbox {
+    orientation: vertical;
+    spacing: 10px;
+    height: 10em;
+    padding: 10px;
+    background-color: transparent;
+}
+
+inputbar {
+    background-color: transparent;
+    text-color: @main-fg;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 0px 0px 10px 0px;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    background-color: transparent;
+    text-color: @main-fg;
+    padding: 0px 8px 0px 0px;
+}
+
+entry {
+    background-color: transparent;
+    text-color: @main-fg;
+    cursor: text;
+    placeholder: "Type to search";
+    placeholder-color: #6c7086;
+}
+
+listview {
+    lines: 10;
+    columns:2;
+    spacing: 8px;
+    background-color:transparent;
+    scrollbar: true;
+    fixed-height: false;
+    dynamic: true;
+    padding: 10px;
+    scrollbar: false;
+}
+
+element {
+    border-radius: 8px;
+    padding: 6px 10px;
+    background-color: transparent;
+    text-color: @main-fg;
+}
+
+element selected {
+    background-color: @select-bg;
+    text-color: @select-fg;
+}
+
+element-text {
+vertical-align: 0.0;
+horizontal-align: 0.0;
+cursor: inherit;
+background-color: transparent;
+text-color: inherit;
+}
