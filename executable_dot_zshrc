@@ -120,3 +120,6 @@ code() {
 if command -v fastfetch >/dev/null; then
     fastfetch
 fi
+
+export EDITOR="code --wait"
+alias chez='chezmoi'

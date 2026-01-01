@@ -1,0 +1,205 @@
+@import "mocha.css";
+
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 12px;
+  font-weight: 500;
+  min-height: 19px;
+}
+
+window#waybar {
+  background-color: transparent;
+  color: @text;
+  border-radius: 2em;
+  padding: 2em 12px;
+}
+
+/* Workspaces */
+#workspaces {
+  border: 2px solid @lavender;
+  border-right: none;
+  border-radius: 2em 0px 0px 2em;
+  background-color: @crust;
+  padding: 0px;
+}
+
+#workspaces button {
+  background: @crust;
+  color: @subtext1;
+  padding: 4px 10px;
+  border-radius: 0px;
+}
+
+#workspaces button:hover {
+  background-color: @surface1;
+  color: @text;
+}
+
+#workspaces button:first-child {
+  border-radius: 1em 0px 0px 1em;
+}
+
+#workspaces button.active {
+  background-color: @lavender;
+  color: @crust;
+}
+
+/* Shared Module Style */
+#clock,
+#battery, #cpu, #memory,
+#power-profiles-daemon, #custom-updates,
+#custom-cpuinfo, #custom-cpufan,
+#custom-spotify, #tray {
+  border-radius: 2em;
+  background-color: @crust;
+  color: @text;
+  padding: 4px 1em;
+}
+
+#custom-updates {
+  border: 2px solid @teal;
+  margin-left: 10px;
+  color: @teal;
+}
+
+#cpu {
+  border: 2px solid @peach;
+  border-right: none;
+  color: @peach;
+  border-radius: 2em 0px 0px 2em;
+}
+
+tooltip {
+  background-color: @crust;
+  border-radius: 4px;
+  padding: 5px 2em;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+#memory {
+  border: 2px solid @red;
+  border-right: none;
+  border-left: none;
+  padding-left: 4px;
+  color: @red;
+  border-radius: 0px;
+}
+
+#custom-cpuinfo {
+  color: @pink;
+  padding-right: 0px;
+  border: 2px solid @pink;
+  border-radius: 0px;
+  border-right: none;
+  border-left: none;
+}
+
+#custom-cpufan {
+  padding-left: 1em;
+  color: @pink;
+  border: 2px solid @pink;
+  border-radius: 0px 2em 2em 0px;
+  border-left: none;
+}
+
+/* Clock */
+#clock {
+  border-radius: 0px;
+  color: @mauve;
+  border: 2px solid @mauve;
+}
+
+/* Spotify */
+#custom-spotify {
+  color: @green;
+  padding-left: 1em;
+  border: 2px solid @green;
+  border-left: none;
+  border-radius: 0px 2em 2em 0px;
+}
+
+/* PulseAudio */
+#pulseaudio {
+  background-color: @crust;
+  padding: 0px 0.5em 0px 12px;
+  color: @blue;
+  border-top: 2px solid @blue;
+  border-bottom: 2px solid @blue;
+}
+
+#pulseaudio.microphone {
+  padding: 4px 12px 4px 0.5em;
+  color: @blue;
+  border-top: 2px solid @blue;
+  border-bottom: 2px solid @blue;
+}
+
+/* Power Profiles */
+#power-profiles-daemon {
+  margin-left: 0px;
+}
+
+#power-profiles-daemon.performance {
+  color: @red;
+  border-top: 2px solid @red;
+  border-bottom: 2px solid @red;
+  border-radius: 0px;
+}
+
+#power-profiles-daemon.balanced {
+  color: @yellow;
+  border-top: 2px solid @yellow;
+  border-bottom: 2px solid @yellow;
+  border-radius: 0px;
+}
+
+#power-profiles-daemon.power-saver {
+  color: @green;
+  border-top: 2px solid @green;
+  border-bottom: 2px solid @green;
+  border-radius: 0px;
+}
+
+/* Battery */
+#battery {
+  border: 2px solid;
+  border-left: none;
+  border-radius: 0px 2em 2em 0px;
+}
+
+#battery.good {
+  color: @green;
+  border: 2px solid @green;
+  border-left: none;
+}
+
+#battery.using {
+  color: @yellow;
+  border-top: 2px solid @yellow;
+  border-bottom: 2px solid @yellow;
+  border-right: 2px solid @yellow;
+}
+
+#battery.warning,
+#battery.critical {
+  color: @red;
+  border-top: 2px solid @red;
+  border-bottom: 2px solid @red;
+  border-right: 2px solid @red;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @green;
+  border-top: 2px solid @green;
+  border-bottom: 2px solid @green;
+  border-right: 2px solid @green;
+}
+
+/* System Tray */
+#tray {
+  border-radius: 2em 0px 0px 2em;
+  border: 2px solid @text;
+  border-right: none;
+}

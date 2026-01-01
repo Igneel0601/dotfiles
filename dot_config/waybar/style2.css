@@ -1,0 +1,157 @@
+@import "mocha.css";
+
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  min-height: 0;
+}
+
+window#waybar {
+  background-color: @surface0;
+  color: @text;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+#workspaces{
+  border-top: 2px solid @lavender;
+  border-bottom: 2px solid @lavender;
+  border-left: 2px solid @lavender;
+  border-radius: 6px 0 0 6px;
+}
+
+#workspaces button {
+  background: @surface0;
+  color: @crust;
+  padding: 4px 10px;
+  border-radius:6px;
+  color: @subtext1;
+  border-radius: 0;
+}
+
+#workspaces button:hover {
+  background-color: @surface1;
+  color: @text;
+  border-radius: 0;
+}
+
+#workspaces button:first-child {
+  border-radius: 6 0 0 6px;
+}
+
+#workspaces button.active{ background-color: @lavender; color: @crust; border-radius:0;}
+
+#clock, #battery, #power-profiles-daemon, #custom-spotify, #tray {
+  border-radius: 6px;
+  background-color: @surface0;
+  color: @text;
+  padding: 4px 8px;
+  /* margin: 2px 6px; */
+}
+
+
+#custom-spotify{
+  color: @green;
+  border-radius: 0 6px 6px 0;
+  padding-left: 1rem;
+  border-top:2px solid @green;
+  border-bottom:2px solid @green;
+  border-right:2px solid @green;
+  /* margin:2px 0; */
+}
+
+
+
+/* Set clock color to mauve (purple) */
+#clock {
+  color: @mauve;
+  border:2px solid @mauve;
+}
+
+#pulseaudio {
+  background-color: rgba(49, 50, 68, 0.5);
+  /* border-radius: 6px 0 0 6px; */
+  padding: 0px 6px 0px 12px;
+  color: @blue;
+  border-top:2px solid @blue;
+  border-bottom:2px solid @blue;
+}
+
+#pulseaudio.microphone{
+  /* border-radius: 0 6px 6px 0; */
+  padding: 4px 12px 4px 6px;
+  color: @blue;
+  border-top:2px solid @blue;
+  border-bottom:2px solid @blue;
+}
+
+#power-profiles-daemon{
+  margin-left:0
+}
+
+/* Red for performance mode */
+#power-profiles-daemon.performance {
+  color: @red;
+  border-top:2px solid @red;
+  border-radius:0;
+  border-bottom:2px solid @red;
+}
+
+/* Yellow for balanced mode */
+#power-profiles-daemon.balanced {
+  color: @yellow;
+  border-top:2px solid @yellow;
+  border-radius:0;
+  border-bottom:2px solid @yellow;
+}
+
+/* Green for power-saver mode */
+#power-profiles-daemon.power-saver {
+  color: @green;
+  border-top:2px solid @green;
+  border-radius:0;
+  border-bottom:2px solid @green;
+}
+
+#battery{
+  color: @yellow;
+  border-top:2px solid @yellow;
+  border-radius:0 6px 6px 0;
+
+}
+
+#battery.good{
+  color: @green;
+  border-top:2px solid @green;
+  border-bottom:2px solid @green;
+  border-right: 2px solid @green;
+}
+
+#battery.using{
+  color: @yellow;
+  border-top:2px solid @yello;
+  border-bottom:2px solid @yellow;
+  border-right: 2px solid @yellow;
+}
+
+#battery.warning, #battery.critical{
+  color: @red;
+  border-top:2px solid @red;
+  border-bottom:2px solid @red;
+  border-right: 2px solid @red;
+}
+
+#battery.charging, #battery.plugged{
+  color: @green;
+  border-top:2px solid @green;
+  border-bottom:2px solid @green;
+  border-right: 2px solid @green;
+}
+
+#tray{
+  border-radius: 6px 0 0 6px;
+  border-bottom: 2px solid @text;
+  border-left: 2px solid @text;
+  border-top: 2px solid @text;
+}
