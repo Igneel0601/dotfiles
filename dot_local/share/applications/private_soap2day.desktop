@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Soap2day - Watch Movies & Series in High Quality!
+Exec=/opt/google/chrome/google-chrome --profile-directory=Default --app=https://ww3.soap2dayhdz.com/
+Icon=chrome-nahmjlkieobfdiejoegnnkdnejaojidj-Default
+StartupWMClass=crx_nahmjlkieobfdiejoegnnkdnejaojidj

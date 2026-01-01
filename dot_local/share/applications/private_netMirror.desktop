@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=NetMirror
+Exec=/opt/google/chrome/google-chrome --profile-directory=Default --app=https://net20.cc/home?utm_source=home_page
+Icon=chrome-bebibjfppgiajiphfeacmjjpmdgedpfk-Default
+StartupWMClass=crx_bebibjfppgiajiphfeacmjjpmdgedpfk
