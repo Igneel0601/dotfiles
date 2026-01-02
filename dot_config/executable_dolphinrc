@@ -6,9 +6,10 @@ MenuBar=Disabled
 DirHistory[$e]=/mnt/home/something/,/mnt/home/something/INSIDER/
 
 [General]
+DynamicView=true
+ShowFullPath=true
 ShowFullPathInTitlebar=true
-ShowStatusBar=Disabled
-ShowZoomSlider=true
+ShowStatusBar=FullWidth
 TerminalApplication=kitty
 Version=202
 ViewPropsTimestamp=2025,5,19,11,46,56.092
