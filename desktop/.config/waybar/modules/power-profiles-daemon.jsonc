@@ -1,0 +1,18 @@
+{
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip": true,
+    "tooltip-format": "{profile}",
+    "profile": {
+      "format": {
+        "performance": "<span color='#f5c2e7'><b>{}</b></span>"
+      }
+    },
+    "format-icons": {
+      "default": "S",
+      "performance": "P",
+      "balanced": "B",
+      "power-saver": "S"
+    }
+  }
+}

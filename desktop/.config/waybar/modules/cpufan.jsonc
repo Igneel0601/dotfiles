@@ -1,0 +1,8 @@
+{
+  "custom/cpufan": {
+    "exec": "sensors | grep \"cpu\" | awk '{print $2}'",
+    "format": "@{}RPM",
+    "interval": 1,
+    "tooltip": false
+  }
+}

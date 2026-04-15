@@ -1,0 +1,8 @@
+{
+  "custom/cpuinfo": {
+    "exec": "sensors | grep -m1 Tctl | grep -oP '\\d+(\\.\\d+)?(?=°C)' | head -1",
+    "format": " {}°C",
+    "interval": 1,
+    "tooltip": false
+  }
+}

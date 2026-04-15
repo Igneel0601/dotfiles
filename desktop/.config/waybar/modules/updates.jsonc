@@ -1,0 +1,11 @@
+{
+  "custom/updates": {
+        "exec": "update.sh",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "hyprctl dispatch exec 'update.sh up'",
+        "interval": 86400,
+        "tooltip": true,
+        "signal": 20
+  }
+}

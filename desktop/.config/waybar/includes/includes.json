@@ -1,0 +1,17 @@
+{
+  "include": [
+    "/home/archVaibhav/.config/waybar/modules/cpu.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/memory.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/clock.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/cpuinfo.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/cpufan.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/updates.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/workspaces.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/power-profiles-daemon.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/tray.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/pulseaudio.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/pulseaudio-microphone.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/battery.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/spotify.jsonc"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "pulseaudio": {
+    "format": "{icon} {volume}",
+    "format-muted": " {volume}",
+    "on-click": "volumecontrol.sh -o m",
+    "on-click-right": "volumecontrol.sh -s ''",
+    "on-click-middle": "pavucontrol -t 3",
+    "on-scroll-up": "volumecontrol.sh -o i",
+    "on-scroll-down": "volumecontrol.sh -o d",
+    "tooltip": false,
+    "scroll-step": 5,
+    "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": [" ", " ", " "]
+    }
+  }
+}
