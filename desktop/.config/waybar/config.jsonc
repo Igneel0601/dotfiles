@@ -1,14 +1,3 @@
 {
-  "include": ["/home/archVaibhav/.config/waybar/includes/includes.json"],
-
-  "layer": "top",
-  // "output": "eDP-1",
-  "position": "top",
-  "margin-top": 6,
-  "margin-left": 8,
-  "margin-right": 8,
-
-  "modules-left": ["hyprland/workspaces", "custom/spotify"],
-  "modules-center": ["cpu", "memory", "clock", "custom/cpuinfo", "custom/cpufan", "custom/updates"],
-  "modules-right": ["tray", "power-profiles-daemon", "pulseaudio", "pulseaudio#microphone", "battery"]
+  "include": ["/home/archVaibhav/.config/waybar/layouts/active.jsonc"]
 }
