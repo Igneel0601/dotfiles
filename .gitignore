@@ -1,0 +1,5 @@
+themes/
+**/__pycache__/
+*.pyc
+*.zwc
+*.zwc.old

@@ -1,0 +1,84 @@
+/* Catppuccin Mocha Theme for Rofi Logout */
+
+* {
+    background-color: #1e1e2e;
+    text-color: #cdd6f4;
+    font: "JetBrains Mono 12";
+    fullscreen:true;
+
+}
+
+@theme "~/.config/rofi/theme.rasi"
+
+window {
+    background-color: transparent;
+    transparency: "real";
+    padding: 0;        
+    margin: 0;         
+    location: center;
+    anchor: center;
+    cursor: default;
+}
+
+mainbox {
+    spacing: 10px;
+    
+    padding: 20px;    
+    background-color: #00000003;
+    children: [ "listview" ];
+}
+
+listview {
+    lines: 2;
+    fixed-height: false;  /* let it expand if needed */
+    fixed-columns: true;
+    columns: 2;
+    border: 2px solid;
+    border-color: @main-br;
+    border-radius: 1em;           /* vertical layout */
+    spacing: 8px;
+    background-color: @main-bg;
+    text-color: #cdd6f4;
+    padding: 0;
+    margin: 0;
+}
+
+element {
+    padding: 10em 20px;
+    margin: 0;
+    border-radius: 1em;
+    background-color: #313244;
+    text-color: #cdd6f4;
+    spacing: 10px;
+    cursor: pointer;
+}
+
+element normal.normal {
+    background-color: #313244;
+    text-color: #cdd6f4;
+}
+
+element selected.normal {
+    background-color: #89b4fa;
+    text-color: #1e1e2e;
+}
+
+element alternate.normal {
+    background-color: #313244;
+    text-color: #cdd6f4;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+    cursor: inherit;
+}
+
+element-icon {
+    size: 24px;
+    background-color: transparent;
+    text-color: inherit;
+    cursor: inherit;
+}

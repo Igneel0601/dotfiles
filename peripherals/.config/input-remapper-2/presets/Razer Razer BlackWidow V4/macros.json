@@ -1,0 +1,75 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 188,
+                "origin_hash": "e199545a9113e50cdbc47dad8b96e55f"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_LEFTCTRL + KEY_LEFTSHIFT + KEY_F6",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 187,
+                "origin_hash": "e199545a9113e50cdbc47dad8b96e55f"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_LEFTCTRL + KEY_LEFTSHIFT + KEY_F5",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 186,
+                "origin_hash": "e199545a9113e50cdbc47dad8b96e55f"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_LEFTCTRL + KEY_LEFTSHIFT + KEY_F4",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 185,
+                "origin_hash": "e199545a9113e50cdbc47dad8b96e55f"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_LEFTCTRL + KEY_LEFTSHIFT + KEY_F3",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 184,
+                "origin_hash": "e199545a9113e50cdbc47dad8b96e55f"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_LEFTCTRL + KEY_LEFTSHIFT + KEY_F2",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 183,
+                "origin_hash": "e199545a9113e50cdbc47dad8b96e55f"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "key(KEY_0).key(KEY_3).key(KEY_0).key(KEY_7).key(KEY_1).key(KEY_9).key(KEY_7).key(KEY_9).key(KEY_ENTER)",
+        "name": "",
+        "mapping_type": "key_macro"
+    }
+]

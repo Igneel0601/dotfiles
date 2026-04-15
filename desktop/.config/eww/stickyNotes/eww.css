@@ -1,0 +1,55 @@
+* {
+  all: unset;
+}
+
+window {
+  background-color: transparent;
+}
+
+.black-box {
+  background-color: #FFF1A8;
+  color: #000000;
+  border-radius: 20px;
+  font-size: 18px;
+}
+
+.note-strip {
+  border-radius: 20px 20px 0 0;
+  background-color: #E6D88F;
+  min-height: 40px;
+}
+
+.note-body {
+  padding: 20px;
+  border-radius: 0 0 20px 20px;
+}
+
+.note-text {
+  font-size: 16px;
+  max-width: 260px;
+}
+
+.plus-btn,
+.del-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #2e2e2e;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.plus-btn:hover,
+.del-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.note-body {
+  padding: 20px;
+  border-radius: 0 0 20px 20px;
+  min-width: 260px;
+  max-width: 260px;
+}
+
+/*# sourceMappingURL=eww.css.map */

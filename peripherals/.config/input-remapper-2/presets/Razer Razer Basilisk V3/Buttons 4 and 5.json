@@ -1,0 +1,26 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 275,
+                "origin_hash": "37491ec238a2c71557570ff81182dabe"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "hold_keys(KEY_LEFTALT, KEY_LEFT)\n",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 276,
+                "origin_hash": "37491ec238a2c71557570ff81182dabe"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "hold_keys(KEY_LEFTALT, KEY_RIGHT)\n",
+        "mapping_type": "key_macro"
+    }
+]
