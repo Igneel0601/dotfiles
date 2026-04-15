@@ -3,3 +3,8 @@ themes/
 *.pyc
 *.zwc
 *.zwc.old
+
+# OBS generated data
+apps/.config/obs-studio/logs/
+apps/.config/obs-studio/profiler_data/
+apps/.config/obs-studio/basic/scenes/*.bak
