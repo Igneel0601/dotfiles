@@ -24,3 +24,12 @@
 @define-color base #1e1e2e;
 @define-color mantle #181825;
 @define-color crust #11111b;
+
+/* Aliases */
+@define-color bg @crust;
+@define-color hover @surface1;
+@define-color subtext @subtext1;
+@define-color accent @lavender;
+@define-color high @green;
+@define-color mid @yellow;
+@define-color low @red;

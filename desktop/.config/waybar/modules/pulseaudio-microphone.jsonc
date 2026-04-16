@@ -2,8 +2,8 @@
   "pulseaudio#microphone": {
       "format": "{format_source}",
       "rotate": 0,
-      "format-source": "",
-      "format-source-muted": "",
+      "format-source": "󰍬",
+      "format-source-muted": "󰍭",
       "on-click": "volumecontrol.sh -i m",
       "on-click-middle": "pavucontrol -t 4",
       "on-scroll-up": "volumecontrol.sh -i i",

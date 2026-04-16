@@ -6,8 +6,22 @@
   "margin-top": 6,
   "margin-left": 8,
   "margin-right": 8,
+  "spacing": 0,
 
-  "modules-left": ["hyprland/workspaces", "custom/spotify"],
-  "modules-center": ["cpu", "memory", "clock", "custom/cpuinfo", "custom/cpufan", "custom/updates"],
-  "modules-right": ["tray", "power-profiles-daemon", "pulseaudio", "pulseaudio#microphone", "battery"]
+  "modules-left": ["group/left-pill", "custom/updates"],
+  "modules-center": ["group/center-pill"],
+  "modules-right": ["group/right-pill"],
+
+  "group/left-pill": {
+    "orientation": "horizontal",
+    "modules": ["hyprland/workspaces", "custom/spotify"]
+  },
+  "group/center-pill": {
+    "orientation": "horizontal",
+    "modules": ["cpu", "memory", "clock", "custom/cpuinfo", "custom/cpufan"]
+  },
+  "group/right-pill": {
+    "orientation": "horizontal",
+    "modules": ["tray", "power-profiles-daemon", "pulseaudio", "pulseaudio#microphone", "battery"]
+  }
 }

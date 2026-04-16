@@ -56,8 +56,7 @@ waybar/
 ├── modules/              # one .jsonc per module
 ├── includes/
 │   └── includes.json     # lists all module files
-├── style.css             # imports mocha.css + component styles
-└── mocha.css             # Catppuccin Mocha color variables
+└── style.css             # imports shared Waybar colors + component styles
 ```
 
 ### How layouts work
@@ -103,4 +102,4 @@ Shebang used: `#!/home/archVaibhav/.dotfiles/scripts/.venv/bin/python`
 
 ## Theme
 
-Catppuccin Mocha throughout. Colors defined in `waybar/mocha.css` and referenced via `@color-name` in CSS.
+Catppuccin Mocha throughout. Waybar colors live in `color-schemes/catppuccin-mocha/waybar/theme.css` and are referenced via `@color-name` in CSS.

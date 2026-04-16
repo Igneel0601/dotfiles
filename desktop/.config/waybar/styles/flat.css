@@ -1,0 +1,63 @@
+/* ── Flat Style ───────────────────────────────────────── */
+/* No borders, no pills — solid dark bar, subtle spacing */
+
+window#waybar {
+  background-color: @bg;
+  border-radius: 0;
+  padding: 0px 8px;
+}
+
+#left-pill > widget > *,
+#center-pill > widget > *,
+#right-pill > widget > * {
+  background-color: transparent;
+  color: @text;
+  border: none;
+  border-radius: 0;
+  padding: 4px 10px;
+  margin: 0;
+}
+
+/* First/last/only — no special treatment */
+#left-pill > widget:first-child > *,
+#center-pill > widget:first-child > *,
+#right-pill > widget:first-child > * {
+  border: none;
+  border-radius: 0;
+}
+
+#left-pill > widget:last-child > *,
+#center-pill > widget:last-child > *,
+#right-pill > widget:last-child > * {
+  border: none;
+  border-radius: 0;
+}
+
+#left-pill > widget:only-child > *,
+#center-pill > widget:only-child > *,
+#right-pill > widget:only-child > * {
+  border: none;
+  border-radius: 0;
+}
+
+/* ── Workspaces flat override ────────────────────────── */
+#left-pill > widget > #workspaces,
+#left-pill > widget:only-child > #workspaces {
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  padding: 0px;
+  margin: 0px;
+}
+
+#workspaces button:first-child,
+#workspaces button:last-child {
+  border-radius: 0;
+}
+
+/* ── Standalone flat override ────────────────────────── */
+#custom-updates {
+  border: none;
+  border-radius: 0;
+  margin-left: 4px;
+}

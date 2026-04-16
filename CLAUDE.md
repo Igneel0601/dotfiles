@@ -58,4 +58,4 @@ Python utilities live in `pyutils/` with a `wrapper/` subdir (rofi, fzf, libnoti
 
 ## Theme Switcher (planned)
 
-Will be a Rofi-based script. Theme definitions will live in `themes/<theme-name>/`. Color format varies by app: Hyprland uses `rgba(RRGGBBAA)`, Waybar uses CSS variables imported from `mocha.css`.
+Will be a Rofi-based script. Theme definitions will live in `themes/<theme-name>/`. Color format varies by app: Hyprland uses `rgba(RRGGBBAA)`, Waybar uses CSS variables imported from `color-schemes/catppuccin-mocha/waybar/theme.css`.

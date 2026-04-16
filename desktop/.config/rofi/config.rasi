@@ -14,7 +14,7 @@ window {
     border: 2px;
     border-radius: 12px;
     padding: 4 0 -12 0;
-    background-color: #00000088;
+    background-color: @main-bg;
     border-color: @main-br;
     transparency: "real";
 }
@@ -47,7 +47,7 @@ entry {
     text-color: @main-fg;
     cursor: text;
     placeholder: "Type to search";
-    placeholder-color: #6c7086;
+    placeholder-color: @main-ex;
 }
 
 listview {
