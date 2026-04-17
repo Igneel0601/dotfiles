@@ -1,0 +1,316 @@
+@import "theme.css";
+
+* {
+  all: initial;
+  color: @text;
+}
+
+* {
+  font-family: "CommitMono Nerd Font", "JetBrainsMono Nerd Font", monospace;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.module {
+  margin-bottom: -1px;
+}
+
+#waybar {
+  background-color: @hover;
+}
+
+#waybar > box {
+  margin: 0.4em;
+  padding: 0;
+  background-color: @bg;
+}
+
+button {
+  border-radius: 1.8em;
+  min-width: 1.8em;
+  padding: 0 1.1em;
+}
+
+button:hover {
+  background-color: @bg3;
+}
+
+tooltip {
+  border: 2px solid @subtext;
+  border-radius: 1.1em;
+  background-color: @bg;
+}
+
+tooltip > box {
+  padding: 0 0.6em;
+}
+
+/* ── Font overrides ─────────────────────────────────── */
+#custom-left_div,
+#custom-left_inv,
+#custom-right_div,
+#custom-right_inv {
+  font-size: 1.4em;
+}
+
+#window label,
+#custom-spotify,
+tooltip label {
+  font-weight: normal;
+}
+
+#workspaces button.active label,
+#workspaces button.focused label {
+  font-size: 1.3em;
+}
+
+
+/* ════════════════════════════════════════════════════════
+   LEFT
+   [mantle] workspaces [mantle]  right_div#1  [crust] window [crust]
+   ════════════════════════════════════════════════════════ */
+
+#workspaces {
+  padding: 0 1px;
+  background-color: @bg2;
+}
+
+#workspaces button.active label,
+#workspaces button.focused label {
+  color: @accent6;
+}
+
+/* workspaces →  */
+#custom-right_div.1 {
+  color: @bg2;
+}
+
+#window {
+  padding: 0 1.3em;
+}
+
+/* ════════════════════════════════════════════════════════
+   CENTER LEFT
+    left_div#2  [mantle] cpuinfo  left_div#3  [base] memory  left_div#4  [surface0] cpu  left_inv#1
+   ════════════════════════════════════════════════════════ */
+
+/*  → cpuinfo */
+#custom-left_div.2 {
+  color: @bg2;
+}
+
+#custom-cpuinfo {
+  background-color: @bg2;
+  padding: 0 1.1em;
+}
+
+/* cpuinfo → memory */
+#custom-left_div.3 {
+  background-color: @bg2;
+  color: @bg3;
+}
+
+#memory {
+  background-color: @bg3;
+  padding: 0 1.1em;
+}
+
+/* memory → cpu */
+#custom-left_div.4 {
+  background-color: @bg3;
+  color: @bg4;
+}
+
+#cpu {
+  background-color: @bg4;
+  padding: 0 1.1em;
+}
+
+/* cpu →  (break out) */
+#custom-left_inv.1 {
+  color: @bg4;
+}
+
+/* ════════════════════════════════════════════════════════
+   CENTER — distro icon (accent)
+    left_div#5  [lavender] distro [lavender]  right_div#2
+   ════════════════════════════════════════════════════════ */
+
+#custom-left_div.5 {
+  color: @accent6;
+}
+
+#custom-distro {
+  font-size: 1.3em;
+  padding: 0 0.8em 0 0.5em;
+  background-color: @accent6;
+  color: @bg;
+}
+
+#custom-right_div.2 {
+  color: @accent6;
+}
+
+/* ════════════════════════════════════════════════════════
+   CENTER RIGHT
+    right_inv#1  [surface0] time  right_div#3  [base] date  right_div#4  [mantle] net bt upd  right_div#5
+   ════════════════════════════════════════════════════════ */
+
+/*  → time (break in) */
+#custom-right_inv.1 {
+  color: @bg4;
+}
+
+#clock.time {
+  background-color: @bg4;
+  padding: 0 1.1em;
+}
+
+/* time → date */
+#custom-right_div.3 {
+  background-color: @bg3;
+  color: @bg4;
+}
+
+#clock.date {
+  background-color: @bg3;
+  padding: 0 1.1em;
+}
+
+/* date → tray section */
+#custom-right_div.4 {
+  background-color: @bg2;
+  color: @bg3;
+}
+
+#network {
+  background-color: @bg2;
+  padding: 0 0.9em;
+}
+
+#bluetooth {
+  background-color: @bg2;
+  padding: 0 0.9em;
+}
+
+#custom-updates {
+  background-color: @bg2;
+  padding: 0 1.1em;
+}
+
+/* tray →  */
+#custom-right_div.5 {
+  color: @bg2;
+}
+
+/* ════════════════════════════════════════════════════════
+   RIGHT
+   [crust] spotify  left_div#6  [mantle] vol  left_div#7  [base] pwr-prof  left_div#8  [surface0] battery
+   ════════════════════════════════════════════════════════ */
+
+#custom-spotify {
+  padding: 0 1.3em;
+}
+
+/*  → volume */
+#custom-left_div.6 {
+  color: @bg2;
+}
+
+#pulseaudio {
+  background-color: @bg2;
+  padding: 0 1.1em;
+}
+
+#pulseaudio.microphone {
+  background-color: @bg2;
+  padding: 0 1.1em;
+}
+
+/* volume → power-profiles */
+#custom-left_div.7 {
+  background-color: @bg2;
+  color: @bg3;
+}
+
+#power-profiles-daemon {
+  background-color: @bg3;
+  padding: 0 1.1em;
+}
+
+/* power-profiles → battery */
+#custom-left_div.8 {
+  background-color: @bg3;
+  color: @bg4;
+}
+
+#battery {
+  background-color: @bg4;
+  padding: 0 1.5em;
+}
+
+/* ════════════════════════════════════════════════════════
+   STATES
+   ════════════════════════════════════════════════════════ */
+
+/* Hover */
+#clock.date:hover,
+#network:hover,
+#bluetooth:hover,
+#custom-updates:hover,
+#custom-spotify:hover,
+#pulseaudio:hover {
+  color: alpha(@text, 0.75);
+}
+
+/* Inactive/muted */
+#pulseaudio.muted {
+  color: alpha(@text, 0.5);
+}
+
+/* Power profiles */
+#power-profiles-daemon.performance {
+  color: @low;
+}
+
+#power-profiles-daemon.balanced {
+  color: @mid;
+}
+
+#power-profiles-daemon.power-saver {
+  color: @high;
+}
+
+/* Battery states */
+#battery.good {
+  color: @high;
+}
+
+#battery.using {
+  color: @mid;
+}
+
+#battery.warning {
+  color: @warn;
+}
+
+#battery.critical {
+  color: @low;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @high;
+}
+
+/* Warning */
+#memory.warning,
+#cpu.warning {
+  color: @mid;
+}
+
+/* Critical */
+#memory.critical,
+#cpu.critical {
+  color: @low;
+}

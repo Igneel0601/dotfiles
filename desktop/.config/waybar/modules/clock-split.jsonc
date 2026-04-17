@@ -1,0 +1,28 @@
+{
+  "clock#time": {
+    "format": " {:%I:%M %p}",
+    "min-length": 10,
+    "max-length": 10,
+    "tooltip-format": "<b>24h</b>: {:%H:%M}"
+  },
+
+  "clock#date": {
+    "format": "󰸗 {:%d-%m}",
+    "min-length": 8,
+    "max-length": 8,
+    "tooltip-format": "{calendar}",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 6,
+      "format": {
+        "months": "<span><b>{}</b></span>",
+        "days": "<span>{}</span>",
+        "weekdays": "<span><i>{}</i></span>",
+        "today": "<span><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click": "mode"
+    }
+  }
+}

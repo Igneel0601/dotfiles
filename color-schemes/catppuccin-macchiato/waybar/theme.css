@@ -1,3 +1,6 @@
+/* Catppuccin Macchiato */
+
+/* Native palette */
 @define-color rosewater #f4dbd6;
 @define-color flamingo #f0c6c6;
 @define-color pink #f5bde6;
@@ -24,3 +27,23 @@
 @define-color base #24273a;
 @define-color mantle #1e2030;
 @define-color crust #181926;
+
+/* Generic aliases */
+@define-color bg @crust;
+@define-color bg2 @mantle;
+@define-color bg3 @base;
+@define-color bg4 @surface0;
+@define-color hover @surface1;
+@define-color subtext @subtext1;
+
+@define-color accent1 @red;
+@define-color accent2 @yellow;
+@define-color accent3 @peach;
+@define-color accent4 @green;
+@define-color accent5 @teal;
+@define-color accent6 @lavender;
+
+@define-color high @green;
+@define-color mid @yellow;
+@define-color low @red;
+@define-color warn @peach;

@@ -3,7 +3,7 @@
 logo_dir="$HOME/.config/fastfetch/logo"
 
 # Get a random logo
-random_logo=$(find "$logo_dir" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.icon" \) 2>/dev/null | shuf -n 1)
+random_logo=$(find "$logo_dir" -maxdepth 1 \( -type f -o -type l \) \( -iname "*.png" -o -iname "*.icon" \) 2>/dev/null | shuf -n 1)
 
 # If 'logo' command is passed, just output the logo path
 if [[ "$1" == "logo" ]]; then

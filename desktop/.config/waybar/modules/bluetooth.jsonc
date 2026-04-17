@@ -1,0 +1,15 @@
+{
+  "bluetooth": {
+    "format": "󰂯",
+    "format-disabled": "󰂲",
+    "format-off": "󰂲",
+    "format-on": "󰂰",
+    "format-connected": "󰂱",
+    "min-length": 2,
+    "max-length": 2,
+    "tooltip-format-disabled": "Bluetooth Disabled",
+    "tooltip-format-off": "Bluetooth Off",
+    "tooltip-format-on": "Bluetooth Disconnected",
+    "tooltip-format-connected": "Device: {device_alias}"
+  }
+}

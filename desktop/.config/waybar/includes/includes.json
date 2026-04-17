@@ -12,6 +12,12 @@
     "/home/archVaibhav/.config/waybar/modules/pulseaudio.jsonc",
     "/home/archVaibhav/.config/waybar/modules/pulseaudio-microphone.jsonc",
     "/home/archVaibhav/.config/waybar/modules/battery.jsonc",
-    "/home/archVaibhav/.config/waybar/modules/spotify.jsonc"
+    "/home/archVaibhav/.config/waybar/modules/spotify.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/dividers.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/distro.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/clock-split.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/network.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/bluetooth.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/window.jsonc"
   ]
 }

@@ -1,0 +1,182 @@
+@import "theme.css";
+
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 12px;
+  font-weight: 500;
+  min-height: 0;
+}
+
+window#waybar {
+  background-color: transparent;
+  color: @text;
+  border-radius: 2em;
+  padding: 0px 12px;
+}
+
+tooltip {
+  background-color: @bg;
+  border-radius: 4px;
+  padding: 5px 2em;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* ── Pill Group Reset ────────────────────────────────── */
+#left-pill,
+#center-pill,
+#right-pill {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  min-height: 0;
+}
+
+#left-pill > widget,
+#center-pill > widget,
+#right-pill > widget {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  min-height: 0;
+}
+
+.modules-left > widget,
+.modules-center > widget,
+.modules-right > widget {
+  padding: 0;
+  margin: 0;
+}
+
+/* ── Pill Shape ──────────────────────────────────────── */
+#left-pill > widget > *,
+#center-pill > widget > *,
+#right-pill > widget > * {
+  background-color: @bg;
+  color: @accent;
+  border-top: 2px solid @accent;
+  border-bottom: 2px solid @accent;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  padding: 0px 1em;
+  margin: 0;
+}
+
+#left-pill > widget:first-child > *,
+#center-pill > widget:first-child > *,
+#right-pill > widget:first-child > * {
+  border-left: 2px solid @accent;
+  border-radius: 2em 0 0 2em;
+}
+
+#left-pill > widget:last-child > *,
+#center-pill > widget:last-child > *,
+#right-pill > widget:last-child > * {
+  border-right: 2px solid @accent;
+  border-radius: 0 2em 2em 0;
+}
+
+#left-pill > widget:only-child > *,
+#center-pill > widget:only-child > *,
+#right-pill > widget:only-child > * {
+  border: 2px solid @accent;
+  border-radius: 2em;
+}
+
+/* ── Workspaces ──────────────────────────────────────── */
+#left-pill > widget > #workspaces {
+  border: 2px solid @accent;
+  border-right: none;
+  border-radius: 2em 0 0 2em;
+  background-color: @bg;
+  padding: 0px;
+  margin: 0px;
+}
+
+#left-pill > widget:only-child > #workspaces {
+  border: 2px solid @accent;
+  border-radius: 2em;
+}
+
+#workspaces button {
+  background: transparent;
+  color: @subtext;
+  padding: 4px 10px;
+  margin: 0px;
+  border-radius: 0px;
+}
+
+#workspaces button:first-child {
+  border-radius: 1em 0 0 1em;
+}
+
+#workspaces button:last-child {
+  border-radius: 0 0em 0em 0;
+}
+
+#workspaces button:hover {
+  background-color: @hover;
+  color: @text;
+}
+
+#workspaces button.active {
+  background-color: @accent;
+  color: @bg;
+}
+
+/* ── Microphone ──────────────────────────────────────── */
+#pulseaudio.microphone {
+  font-size: 13px;
+}
+
+/* ── Standalone Modules ──────────────────────────────── */
+#custom-updates {
+  background-color: @bg;
+  color: @accent;
+  border: 2px solid @accent;
+  border-radius: 2em;
+  padding: 4px 1em;
+  margin-left: 10px;
+}
+
+/* ── Power Profiles (state colors) ───────────────────── */
+#power-profiles-daemon.performance {
+  color: @low;
+  border-color: @low;
+}
+
+#power-profiles-daemon.balanced {
+  color: @mid;
+  border-color: @mid;
+}
+
+#power-profiles-daemon.power-saver {
+  color: @high;
+  border-color: @high;
+}
+
+/* ── Battery (state colors) ──────────────────────────── */
+#battery.good {
+  color: @high;
+  border-color: @high;
+}
+
+#battery.using {
+  color: @mid;
+  border-color: @mid;
+}
+
+#battery.warning,
+#battery.critical {
+  color: @low;
+  border-color: @low;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @high;
+  border-color: @high;
+}

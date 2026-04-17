@@ -8,6 +8,7 @@ declare -A TARGETS=(
     ["kitty/theme.conf"]="terminal/.config/kitty/theme.conf"
     ["rofi/theme.rasi"]="desktop/.config/rofi/theme.rasi"
     ["waybar/theme.css"]="desktop/.config/waybar/theme.css"
+    ["btop/theme.theme"]="terminal/.config/btop/themes/default.theme"
 )
 
 # Get available themes
@@ -52,6 +53,10 @@ switch_theme() {
         echo "Linked: ${TARGETS[$scheme_file]} -> $rel_path"
     done
 
+    # Kvantum — repoint main symlink
+    ln -sfn "$SCHEMES_DIR/$theme/Kvantum" "$HOME/.config/Kvantum/main"
+    echo "Linked: Kvantum/main -> $theme"
+
     # Reload apps
     echo "Reloading..."
 
@@ -64,6 +69,7 @@ switch_theme() {
     if pgrep -x kitty &>/dev/null; then
         killall -SIGUSR1 kitty 2>/dev/null
     fi
+
 
     echo "Switched to: $theme"
 }

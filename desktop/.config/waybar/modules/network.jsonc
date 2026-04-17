@@ -1,0 +1,17 @@
+{
+  "network": {
+    "interval": 10,
+    "format": "󰤨",
+    "format-ethernet": "󰈀",
+    "format-wifi": "{icon}",
+    "format-disconnected": "󰤯",
+    "format-disabled": "󰤮",
+    "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
+    "min-length": 2,
+    "max-length": 2,
+    "tooltip-format-ethernet": "<b>Interface</b>: {ifname}",
+    "tooltip-format-wifi": "<b>Network</b>: {essid}\n<b>Strength</b>: {signalStrength}%",
+    "tooltip-format-disconnected": "Wi-Fi Disconnected",
+    "tooltip-format-disabled": "Wi-Fi Disabled"
+  }
+}

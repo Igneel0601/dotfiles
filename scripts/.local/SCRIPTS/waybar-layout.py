@@ -5,15 +5,16 @@ import subprocess
 import sys
 from pathlib import Path
 
-DOTFILES_LAYOUTS = Path.home() / ".dotfiles/desktop/.config/waybar/layouts"
-ACTIVE_DIR = Path.home() / ".config/waybar/layouts"
-ACTIVE = ACTIVE_DIR / "active.jsonc"
-STATE = ACTIVE_DIR / ".active"
+DOTFILES_WAYBAR = Path.home() / ".dotfiles/desktop/.config/waybar"
+DOTFILES_LAYOUTS = DOTFILES_WAYBAR / "layouts"
+WAYBAR_DIR = Path.home() / ".config/waybar"
+STATE = WAYBAR_DIR / ".active-layout"
 
 
 def get_layouts() -> list[str]:
     return sorted(
-        p.stem for p in DOTFILES_LAYOUTS.glob("*.jsonc")
+        p.name for p in DOTFILES_LAYOUTS.iterdir()
+        if p.is_dir() and (p / "config.jsonc").exists()
     )
 
 
@@ -36,15 +37,22 @@ def rofi_pick(layouts: list[str], current: str) -> str | None:
 
 
 def apply(chosen: str) -> None:
-    layout_file = DOTFILES_LAYOUTS / f"{chosen}.jsonc"
-    if not layout_file.exists():
-        print(f"Layout not found: {layout_file}", file=sys.stderr)
+    layout_dir = DOTFILES_LAYOUTS / chosen
+    if not layout_dir.exists():
+        print(f"Layout not found: {layout_dir}", file=sys.stderr)
         sys.exit(1)
 
-    # Update symlink
-    if ACTIVE.exists() or ACTIVE.is_symlink():
-        ACTIVE.unlink()
-    ACTIVE.symlink_to(layout_file)
+    # Repoint config.jsonc symlink
+    config_link = WAYBAR_DIR / "config.jsonc"
+    if config_link.exists() or config_link.is_symlink():
+        config_link.unlink()
+    config_link.symlink_to(layout_dir / "config.jsonc")
+
+    # Repoint style.css symlink
+    style_link = WAYBAR_DIR / "style.css"
+    if style_link.exists() or style_link.is_symlink():
+        style_link.unlink()
+    style_link.symlink_to(layout_dir / "style.css")
 
     # Save state
     STATE.write_text(chosen)
@@ -55,8 +63,6 @@ def apply(chosen: str) -> None:
 
 
 def main() -> None:
-    ACTIVE_DIR.mkdir(parents=True, exist_ok=True)
-
     layouts = get_layouts()
     if not layouts:
         print("No layouts found in", DOTFILES_LAYOUTS, file=sys.stderr)

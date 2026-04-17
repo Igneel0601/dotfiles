@@ -1,0 +1,10 @@
+{
+  "hyprland/window": {
+    "format": "{}",
+    "rewrite": {
+      "": "Desktop"
+    },
+    "max-length": 30,
+    "swap-icon-label": false
+  }
+}
