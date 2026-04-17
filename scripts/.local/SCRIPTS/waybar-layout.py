@@ -8,7 +8,7 @@ from pathlib import Path
 DOTFILES_WAYBAR = Path.home() / ".dotfiles/desktop/.config/waybar"
 DOTFILES_LAYOUTS = DOTFILES_WAYBAR / "layouts"
 WAYBAR_DIR = Path.home() / ".config/waybar"
-STATE = WAYBAR_DIR / ".active-layout"
+STATE = Path.home() / ".local/state/waybar-layout"
 
 
 def get_layouts() -> list[str]:

@@ -9,6 +9,9 @@ declare -A TARGETS=(
     ["rofi/theme.rasi"]="desktop/.config/rofi/theme.rasi"
     ["waybar/theme.css"]="desktop/.config/waybar/theme.css"
     ["btop/theme.theme"]="terminal/.config/btop/themes/default.theme"
+    ["Kvantum/main.kvconfig"]="theming/.config/Kvantum/main/main.kvconfig"
+    ["Kvantum/main.svg"]="theming/.config/Kvantum/main/main.svg"
+    ["kde/kdeglobals"]="theming/.config/kdeglobals"
 )
 
 # Get available themes
@@ -53,10 +56,6 @@ switch_theme() {
         echo "Linked: ${TARGETS[$scheme_file]} -> $rel_path"
     done
 
-    # Kvantum — repoint main symlink
-    ln -sfn "$SCHEMES_DIR/$theme/Kvantum" "$HOME/.config/Kvantum/main"
-    echo "Linked: Kvantum/main -> $theme"
-
     # Reload apps
     echo "Reloading..."
 
@@ -69,6 +68,10 @@ switch_theme() {
     if pgrep -x kitty &>/dev/null; then
         killall -SIGUSR1 kitty 2>/dev/null
     fi
+
+    # GTK theme
+    local gtk_theme="${theme}-lavender-standard+default"
+    gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
 
 
     echo "Switched to: $theme"

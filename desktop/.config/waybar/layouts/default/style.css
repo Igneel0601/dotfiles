@@ -55,9 +55,8 @@ tooltip {
 #center-pill > widget > *,
 #right-pill > widget > * {
   background-color: @bg;
-  color: @accent;
-  border-top: 2px solid @accent;
-  border-bottom: 2px solid @accent;
+  border-top: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
   border-left: none;
   border-right: none;
   border-radius: 0;
@@ -68,37 +67,36 @@ tooltip {
 #left-pill > widget:first-child > *,
 #center-pill > widget:first-child > *,
 #right-pill > widget:first-child > * {
-  border-left: 2px solid @accent;
+  border-left: 2px solid currentColor;
   border-radius: 2em 0 0 2em;
 }
 
 #left-pill > widget:last-child > *,
 #center-pill > widget:last-child > *,
 #right-pill > widget:last-child > * {
-  border-right: 2px solid @accent;
+  border-right: 2px solid currentColor;
   border-radius: 0 2em 2em 0;
 }
 
 #left-pill > widget:only-child > *,
 #center-pill > widget:only-child > *,
 #right-pill > widget:only-child > * {
-  border: 2px solid @accent;
+  border: 2px solid currentColor;
   border-radius: 2em;
 }
+
+/* ── Per-module accent colors ────────────────────────── */
+#workspaces, #custom-spotify, #cpu, #memory, #clock,
+#custom-cpuinfo, #custom-cpufan, #tray,
+#power-profiles-daemon, #pulseaudio,
+#battery, #custom-updates { color: @accent6; }
 
 /* ── Workspaces ──────────────────────────────────────── */
 #left-pill > widget > #workspaces {
-  border: 2px solid @accent;
   border-right: none;
-  border-radius: 2em 0 0 2em;
   background-color: @bg;
   padding: 0px;
   margin: 0px;
-}
-
-#left-pill > widget:only-child > #workspaces {
-  border: 2px solid @accent;
-  border-radius: 2em;
 }
 
 #workspaces button {
@@ -123,60 +121,35 @@ tooltip {
 }
 
 #workspaces button.active {
-  background-color: @accent;
+  background-color: @accent6;
   color: @bg;
 }
 
 /* ── Microphone ──────────────────────────────────────── */
 #pulseaudio.microphone {
+  color: @accent5;
   font-size: 13px;
 }
 
 /* ── Standalone Modules ──────────────────────────────── */
 #custom-updates {
   background-color: @bg;
-  color: @accent;
-  border: 2px solid @accent;
+  border: 2px solid currentColor;
   border-radius: 2em;
   padding: 4px 1em;
   margin-left: 10px;
 }
 
 /* ── Power Profiles (state colors) ───────────────────── */
-#power-profiles-daemon.performance {
-  color: @low;
-  border-color: @low;
-}
-
-#power-profiles-daemon.balanced {
-  color: @mid;
-  border-color: @mid;
-}
-
-#power-profiles-daemon.power-saver {
-  color: @high;
-  border-color: @high;
-}
+#power-profiles-daemon.performance { color: @low; }
+#power-profiles-daemon.balanced    { color: @mid; }
+#power-profiles-daemon.power-saver { color: @high; }
 
 /* ── Battery (state colors) ──────────────────────────── */
-#battery.good {
-  color: @high;
-  border-color: @high;
-}
-
-#battery.using {
-  color: @mid;
-  border-color: @mid;
-}
-
+#battery.good                      { color: @high; }
+#battery.using                     { color: @mid; }
 #battery.warning,
-#battery.critical {
-  color: @low;
-  border-color: @low;
-}
-
+#battery.critical                  { color: @low; }
 #battery.charging,
-#battery.plugged {
-  color: @high;
-  border-color: @high;
-}
+#battery.plugged                   { color: @high; }
+
