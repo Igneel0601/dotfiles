@@ -1,10 +1,10 @@
 {
   "pulseaudio": {
     "format": "{icon} {volume}",
-    "format-muted": " {volume}",
+    "format-muted": "󰝟",
     "on-click": "volumecontrol.sh -o m",
     "on-click-right": "volumecontrol.sh -s ''",
-    "on-click-middle": "pavucontrol -t 3",
+    "on-click-middle": "pavucontrol-qt -t 3",
     "on-scroll-up": "volumecontrol.sh -o i",
     "on-scroll-down": "volumecontrol.sh -o d",
     "tooltip": false,

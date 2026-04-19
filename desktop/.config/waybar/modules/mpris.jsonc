@@ -1,0 +1,21 @@
+{
+  "mpris": {
+    "format": "{status_icon} {player}",
+    "format-playing": "{status_icon} {player}",
+    "format-paused": "{status_icon} {player}",
+    "format-stopped": "",
+   
+    "status-icons": {
+      "playing": "󰏤",
+      "paused": "󰐊",
+      "stopped": "󰓛"
+    },
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous",
+    "tooltip": true,
+    "tooltip-format": "{title} - {artist} ",
+    "tooltip-format-paused": "{title} - {artist}",
+    "tooltip-format-stopped": "stopped"
+  }
+}

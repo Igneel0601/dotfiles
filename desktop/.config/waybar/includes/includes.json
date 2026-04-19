@@ -18,6 +18,7 @@
     "/home/archVaibhav/.config/waybar/modules/clock-split.jsonc",
     "/home/archVaibhav/.config/waybar/modules/network.jsonc",
     "/home/archVaibhav/.config/waybar/modules/bluetooth.jsonc",
-    "/home/archVaibhav/.config/waybar/modules/window.jsonc"
+    "/home/archVaibhav/.config/waybar/modules/window.jsonc",
+    "/home/archVaibhav/.config/waybar/modules/mpris.jsonc"
   ]
 }

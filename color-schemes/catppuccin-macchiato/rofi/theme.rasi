@@ -1,10 +1,11 @@
 * {
-    main-bg:            #181926e6;
+    main-bg:            #24273ae6;
     main-fg:            #cad3f5ff;
     main-br:            #c6a0f6ff;
     main-ex:            #f4dbd6ff;
     select-bg:          #b7bdf8ff;
-    select-fg:          #181926ff;
+    select-fg:          #24273aff;
     separatorcolor:     transparent;
     border-color:       transparent;
 }
+@import "~/.cache/matugen/rofi-border.rasi"

@@ -1,11 +1,6 @@
 @import "theme.css";
 
 * {
-  all: initial;
-  color: @text;
-}
-
-* {
   font-family: "CommitMono Nerd Font", "JetBrainsMono Nerd Font", monospace;
   font-weight: bold;
   font-size: 12px;
@@ -54,7 +49,7 @@ tooltip > box {
 }
 
 #window label,
-#custom-spotify,
+#mpris,
 tooltip label {
   font-weight: normal;
 }
@@ -67,7 +62,7 @@ tooltip label {
 
 /* ════════════════════════════════════════════════════════
    LEFT
-   [mantle] workspaces [mantle]  right_div#1  [crust] window [crust]
+   [mantle] workspaces [mantle]  right_div#1  [crust] mpris [crust]
    ════════════════════════════════════════════════════════ */
 
 #workspaces {
@@ -85,55 +80,58 @@ tooltip label {
   color: @bg2;
 }
 
-#window {
+#mpris {
   padding: 0 1.3em;
 }
 
 /* ════════════════════════════════════════════════════════
    CENTER LEFT
-    left_div#2  [mantle] cpuinfo  left_div#3  [base] memory  left_div#4  [surface0] cpu  left_inv#1
+    left_div#2  [bg2] memory  left_div#3  [bg3] cpu  left_div#4  [bg4] time  left_inv#1
    ════════════════════════════════════════════════════════ */
 
-/*  → cpuinfo */
+/*  → memory */
 #custom-left_div.2 {
   color: @bg2;
 }
 
-#custom-cpuinfo {
+#memory {
   background-color: @bg2;
   padding: 0 1.1em;
+  min-width: 5em;
 }
 
-/* cpuinfo → memory */
+/* memory → cpu */
 #custom-left_div.3 {
   background-color: @bg2;
   color: @bg3;
 }
 
-#memory {
+#cpu {
   background-color: @bg3;
   padding: 0 1.1em;
+  min-width: 5em;
 }
 
-/* memory → cpu */
+/* cpu → time */
 #custom-left_div.4 {
   background-color: @bg3;
   color: @bg4;
 }
 
-#cpu {
+#clock.time {
   background-color: @bg4;
   padding: 0 1.1em;
+  min-width: 5em;
 }
 
-/* cpu →  (break out) */
+/* time →  (break out) */
 #custom-left_inv.1 {
   color: @bg4;
 }
 
 /* ════════════════════════════════════════════════════════
    CENTER — distro icon (accent)
-    left_div#5  [lavender] distro [lavender]  right_div#2
+    left_div#5  [lavender] distro  right_div#2
    ════════════════════════════════════════════════════════ */
 
 #custom-left_div.5 {
@@ -153,44 +151,57 @@ tooltip label {
 
 /* ════════════════════════════════════════════════════════
    CENTER RIGHT
-    right_inv#1  [surface0] time  right_div#3  [base] date  right_div#4  [mantle] net bt upd  right_div#5
+    right_inv#1  [bg4] date  right_div#3  [bg3] cpuinfo  right_div#4  [bg2] cpufan  right_div#5
    ════════════════════════════════════════════════════════ */
 
-/*  → time (break in) */
+/*  → date (break in) */
 #custom-right_inv.1 {
   color: @bg4;
 }
 
-#clock.time {
+#clock.date {
   background-color: @bg4;
-  padding: 0 1.1em;
+  padding: 0 0.7em;
+  min-width: 5em;
 }
 
-/* time → date */
+/* date → cpuinfo */
 #custom-right_div.3 {
   background-color: @bg3;
   color: @bg4;
 }
 
-#clock.date {
+#custom-cpuinfo {
   background-color: @bg3;
   padding: 0 1.1em;
+  min-width: 5em;
 }
 
-/* date → tray section */
+/* cpuinfo → cpufan */
 #custom-right_div.4 {
   background-color: @bg2;
   color: @bg3;
 }
 
-#network {
+#custom-cpufan {
   background-color: @bg2;
-  padding: 0 0.9em;
+  padding: 0 1.1em;
+  min-width: 5em;
 }
 
-#bluetooth {
-  background-color: @bg2;
-  padding: 0 0.9em;
+/* cpufan →  */
+#custom-right_div.5 {
+  color: @bg2;
+}
+
+/* ════════════════════════════════════════════════════════
+   RIGHT
+    left_div#6  [bg2] updates tray  left_div#7  [bg3] pulseaudio mic  left_div#8  [bg4] pwr-prof battery
+   ════════════════════════════════════════════════════════ */
+
+/*  → updates */
+#custom-left_div.6 {
+  color: @bg2;
 }
 
 #custom-updates {
@@ -198,50 +209,36 @@ tooltip label {
   padding: 0 1.1em;
 }
 
-/* tray →  */
-#custom-right_div.5 {
-  color: @bg2;
-}
-
-/* ════════════════════════════════════════════════════════
-   RIGHT
-   [crust] spotify  left_div#6  [mantle] vol  left_div#7  [base] pwr-prof  left_div#8  [surface0] battery
-   ════════════════════════════════════════════════════════ */
-
-#custom-spotify {
-  padding: 0 1.3em;
-}
-
-/*  → volume */
-#custom-left_div.6 {
-  color: @bg2;
-}
-
-#pulseaudio {
+#tray {
   background-color: @bg2;
-  padding: 0 1.1em;
+  padding: 0 0.9em;
 }
 
-#pulseaudio.microphone {
-  background-color: @bg2;
-  padding: 0 1.1em;
-}
-
-/* volume → power-profiles */
+/* tray → pulseaudio */
 #custom-left_div.7 {
   background-color: @bg2;
   color: @bg3;
 }
 
-#power-profiles-daemon {
+#pulseaudio {
   background-color: @bg3;
   padding: 0 1.1em;
 }
 
-/* power-profiles → battery */
+#pulseaudio.microphone {
+  background-color: @bg3;
+  padding: 0 1.1em;
+}
+
+/* mic → power-profiles */
 #custom-left_div.8 {
   background-color: @bg3;
   color: @bg4;
+}
+
+#power-profiles-daemon {
+  background-color: @bg4;
+  padding: 0 1.1em;
 }
 
 #battery {
@@ -253,64 +250,38 @@ tooltip label {
    STATES
    ════════════════════════════════════════════════════════ */
 
-/* Hover */
 #clock.date:hover,
-#network:hover,
-#bluetooth:hover,
 #custom-updates:hover,
-#custom-spotify:hover,
+#mpris:hover,
 #pulseaudio:hover {
   color: alpha(@text, 0.75);
 }
 
-/* Inactive/muted */
-#pulseaudio.muted {
+#pulseaudio.muted:not(.microphone) {
+  color: alpha(@text, 0.5);
+  font-size: 16px;
+}
+
+
+#pulseaudio.microphone.source-muted {
   color: alpha(@text, 0.5);
 }
 
-/* Power profiles */
-#power-profiles-daemon.performance {
-  color: @low;
-}
 
-#power-profiles-daemon.balanced {
-  color: @mid;
-}
 
-#power-profiles-daemon.power-saver {
-  color: @high;
-}
+#power-profiles-daemon.performance { color: @low; }
+#power-profiles-daemon.balanced    { color: @mid; }
+#power-profiles-daemon.power-saver { color: @high; }
 
-/* Battery states */
-#battery.good {
-  color: @high;
-}
-
-#battery.using {
-  color: @mid;
-}
-
-#battery.warning {
-  color: @warn;
-}
-
-#battery.critical {
-  color: @low;
-}
-
+#battery.good       { color: @high; }
+#battery.using      { color: @mid; }
+#battery.warning    { color: @warn; }
+#battery.critical   { color: @low; }
 #battery.charging,
-#battery.plugged {
-  color: @high;
-}
+#battery.plugged    { color: @high; }
 
-/* Warning */
 #memory.warning,
-#cpu.warning {
-  color: @mid;
-}
+#cpu.warning  { color: @mid; }
 
-/* Critical */
 #memory.critical,
-#cpu.critical {
-  color: @low;
-}
+#cpu.critical { color: @low; }

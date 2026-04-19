@@ -126,7 +126,6 @@ if [ -f "$selected_path" ]; then
         awww img "$selected_path" --transition-type wipe --transition-duration 1
         echo "Wallpaper set: $(basename "$selected_path")"
         cp "$selected_path" ~/.cache/wall
-        dunstify -i ~/.cache/wall -u low "Wallpaper Changed" "Wallpaper set to $(basename "$selected_path")"
 
         # magick "$selected_path"[0] -strip -resize 1000 -gravity center -extent 1000 -quality 90 "$HOME/.cache/wall.thmb"
         magick "$selected_path"[0] -strip -thumbnail 500x500^ -gravity center -extent 500x500 "$HOME/.cache/wall.sqre"
@@ -163,5 +162,9 @@ else
     echo "Error: File not found - $selected_path"
     exit 1
 fi
+
+# Regenerate dynamic colors from wallpaper (matugen fires per-template post-hooks)
+matugen image "$HOME/.cache/wall" --prefer saturation &>/dev/null
+dunstify -i ~/.cache/wall -u low "Wallpaper Changed" "Wallpaper set to $(basename "$selected_path")"
 
 cp $HOME/.cache/wall.dark /usr/share/sddm/themes/$sddm_theme/backgrounds

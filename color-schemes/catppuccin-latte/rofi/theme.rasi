@@ -8,3 +8,4 @@
     separatorcolor:     transparent;
     border-color:       transparent;
 }
+@import "~/.cache/matugen/rofi-border.rasi"

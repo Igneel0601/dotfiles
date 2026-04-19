@@ -1,0 +1,16 @@
+[config]
+reload_apps = false
+
+[templates.hypr_colors]
+input_path = "~/.config/matugen/templates/hypr-colors.conf"
+output_path = "~/.cache/matugen/hypr-colors.conf"
+post_hook = "hyprctl reload"
+
+[templates.rofi_border]
+input_path = "~/.config/matugen/templates/rofi-border.rasi"
+output_path = "~/.cache/matugen/rofi-border.rasi"
+
+[templates.dunst]
+input_path = "~/.config/matugen/templates/dunstrc"
+output_path = "~/.config/dunst/dunstrc"
+post_hook = "systemctl --user restart dunst.service"

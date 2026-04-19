@@ -5,7 +5,7 @@
       "format-source": "󰍬",
       "format-source-muted": "󰍭",
       "on-click": "volumecontrol.sh -i m",
-      "on-click-middle": "pavucontrol -t 4",
+      "on-click-middle": "pavucontrol-qt -t 4",
       "on-scroll-up": "volumecontrol.sh -i i",
       "on-scroll-down": "volumecontrol.sh -i d",
       "tooltip-format": "{format_source} {source_desc} // {source_volume}%",

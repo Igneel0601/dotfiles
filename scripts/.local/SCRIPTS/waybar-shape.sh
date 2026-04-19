@@ -38,6 +38,8 @@ mkdir -p "$(dirname "$STATE_FILE")"
 echo "$next" > "$STATE_FILE"
 
 # Restart waybar
-systemctl --user restart waybar.service
+killall -q waybar
+setsid waybar >/dev/null 2>&1 &
+disown
 
 notify-send "Waybar Shape" "Switched to: $next"

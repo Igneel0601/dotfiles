@@ -1,2 +1,2 @@
-(include "stickyNotes/grid.yuck")
+(include "resources/resources.yuck")
 ;; ========== EWW CONFIGURATION ==========

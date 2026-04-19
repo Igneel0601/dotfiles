@@ -58,7 +58,9 @@ def apply(chosen: str) -> None:
     STATE.write_text(chosen)
 
     # Restart waybar
-    subprocess.run(["systemctl", "--user", "restart", "waybar.service"])
+    subprocess.run(["killall", "-q", "waybar"])
+    subprocess.Popen(["waybar"], start_new_session=True,
+                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     print(f"Switched to: {chosen}")
 
 

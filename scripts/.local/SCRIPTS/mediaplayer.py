@@ -79,19 +79,13 @@ def write_output(track, artist, playing, player, tooltip_text):
     prefix = prefix_playing if playing else prefix_paused
     max_length = max_length_module
 
-    # Calculate the total length and truncate track if necessary
-    total_length = len(track) + len(artist)
-    if total_length > max_length:
-        available_length = max(0, max_length - len(artist))
-        track = (
-            f"{track[:available_length]}…" if len(track) > available_length else track
-        )
+    # Truncate track if necessary
+    if len(track) > max_length:
+        track = f"{track[:max_length]}…"
 
-    # Generate the "text" based on the presence of track and artist
-    if track and not artist:
+    # Generate the "text" using only track
+    if track:
         output_text = f"{prefix}  <b>{track}</b>"
-    elif track and artist:
-        output_text = f"{prefix}  <i>{track}</i>  <b>{artist}</b>"
     else:
         output_text = "<b>Nothing playing</b>"
 
@@ -250,7 +244,7 @@ def main():
     # You can configure these in ~/.config/hyde/config.toml
     prefix_playing = os.getenv("MEDIAPLAYER_PREFIX_PLAYING", "")
     prefix_paused = os.getenv("MEDIAPLAYER_PREFIX_PAUSED", "▶")
-    max_length_module = int(os.getenv("MEDIAPLAYER_MAX_LENGTH", "30"))
+    max_length_module = int(os.getenv("MEDIAPLAYER_MAX_LENGTH", "20"))
     standby_text = os.getenv("MEDIAPLAYER_STANDBY_TEXT", "  Music")
 
     # Initialize tooltip colors

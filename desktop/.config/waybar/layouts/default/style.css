@@ -124,12 +124,17 @@ tooltip {
   background-color: @accent6;
   color: @bg;
 }
+#pulseaudio.muted {
+  font-size: 16px;
+}
 
 /* ── Microphone ──────────────────────────────────────── */
 #pulseaudio.microphone {
   color: @accent5;
   font-size: 13px;
 }
+
+
 
 /* ── Standalone Modules ──────────────────────────────── */
 #custom-updates {

@@ -12,6 +12,18 @@ declare -A TARGETS=(
     ["Kvantum/main.kvconfig"]="theming/.config/Kvantum/main/main.kvconfig"
     ["Kvantum/main.svg"]="theming/.config/Kvantum/main/main.svg"
     ["kde/kdeglobals"]="theming/.config/kdeglobals"
+    ["dunst/dunstrc"]="desktop/.config/matugen/templates/dunstrc"
+    ["icons/bluetooth.svg"]="theming/.local/share/icons/custom/bluetooth.svg"
+    ["icons/razer.svg"]="theming/.local/share/icons/custom/razer.svg"
+    ["icons/bluetooth-connected.svg"]="theming/.local/share/icons/custom/bluetooth-connected.svg"
+    ["icons/bluetooth-off.svg"]="theming/.local/share/icons/custom/bluetooth-off.svg"
+    ["icons/wifi-1.svg"]="theming/.local/share/icons/custom/wifi-1.svg"
+    ["icons/wifi-2.svg"]="theming/.local/share/icons/custom/wifi-2.svg"
+    ["icons/wifi-3.svg"]="theming/.local/share/icons/custom/wifi-3.svg"
+    ["icons/wifi-4.svg"]="theming/.local/share/icons/custom/wifi-4.svg"
+    ["icons/wifi-off.svg"]="theming/.local/share/icons/custom/wifi-off.svg"
+    ["icons/ethernet.svg"]="theming/.local/share/icons/custom/ethernet.svg"
+    ["icons/network-disconnected.svg"]="theming/.local/share/icons/custom/network-disconnected.svg"
 )
 
 # Get available themes
@@ -73,6 +85,10 @@ switch_theme() {
     local gtk_theme="${theme}-lavender-standard+default"
     gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
 
+    # Regenerate templated files (dunstrc) + fire matugen post-hooks
+    if [[ -f "$HOME/.cache/wall" ]]; then
+        matugen image "$HOME/.cache/wall" --prefer saturation &>/dev/null
+    fi
 
     echo "Switched to: $theme"
 }

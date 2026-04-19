@@ -7,9 +7,9 @@
   },
 
   "clock#date": {
-    "format": "󰸗 {:%d-%m}",
-    "min-length": 8,
-    "max-length": 8,
+    "format": "{:%a, %d %b}",
+    "min-length": 11,
+    "max-length": 11,
     "tooltip-format": "{calendar}",
     "calendar": {
       "mode": "month",
