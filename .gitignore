@@ -9,3 +9,8 @@ themes/
 apps/.config/obs-studio/logs/
 apps/.config/obs-studio/profiler_data/
 apps/.config/obs-studio/basic/scenes/*.bak
+
+# local scratch / backups
+code.md
+code-mocha.tmpl
+*.backup.*

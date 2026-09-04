@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Study-lockdown entry point for the pomodoro widget.
+#
+# The widget spawns THIS wrapper (from ~/.local/SCRIPTS) rather than sudo-ing
+# directly, so the AGS code stays clean. The canonical /usr/local/bin path is
+# kept inside sudo here so the NOPASSWD sudoers rule still matches (a bare
+# symlink invoked through sudo would not match, and -n would abort).
+#
+# Usage: focus-lock on <seconds> | focus-lock off
+exec sudo -n /usr/local/bin/focus-lock "$@"

@@ -1,0 +1,17 @@
+/* Shared surface tokens for the desktop widgets.
+ *
+ * The glass values come from the "Sticky Note Widget" Claude Design project's
+ * Glass surface. GTK has no backdrop-filter, so the blur behind these has to
+ * come from the compositor - each widget's window sets its own layer-shell
+ * namespace and hyprland/windowrules.conf blurs it.
+ *
+ * Keep this file ASCII: app.ts concatenates the widget stylesheets, and any
+ * non-ASCII makes sass emit a leading @charset that GTK then rejects.
+ */
+
+$glass-bg: rgba(38, 40, 56, 0.4);
+$glass-border: rgba(255, 255, 255, 0.16);
+
+/* The radius the cards already used. The design's Glass asks for 20px, but the
+ * widgets read as one set, so they share the existing 1rem. */
+$glass-radius: 1rem;

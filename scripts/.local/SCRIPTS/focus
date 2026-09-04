@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# focus — study lockdown wrapper. Locks the machine to YouTube + Claude via the
+# root helper (which fetches ranges, pins Anthropic, firewalls, kills apps) and
+# plays a YouTube playlist in mpv. Auto-unlocks after the timer.
+#
+#   focus 90m [playlist-url]   lock 90 min, play playlist
+#   focus 1h                   reuse last playlist
+#   focus off                  unlock early
+set -uo pipefail
+
+CFG="$HOME/.config/focus"; mkdir -p "$CFG"
+usage(){ echo "usage: focus <90m|1h|45min|3600s> [playlist-url]   |   focus off"; exit 1; }
+[[ $# -ge 1 ]] || usage
+
+if [[ $1 == off ]]; then exec sudo /usr/local/bin/focus-lock off; fi
+
+DUR_RAW="$1"; shift || true
+case "$DUR_RAW" in
+  *h)   SECS=$(( ${DUR_RAW%h}   * 3600 )) ;;
+  *min) SECS=$(( ${DUR_RAW%min} * 60 ))  ;;
+  *m)   SECS=$(( ${DUR_RAW%m}   * 60 ))  ;;
+  *s)   SECS=$(( ${DUR_RAW%s} ))         ;;
+  *[!0-9]*) echo "bad duration: $DUR_RAW"; usage ;;
+  *)    SECS=$(( DUR_RAW * 60 ))         ;;
+esac
+[[ $SECS -ge 10 ]] || { echo "duration too short"; exit 1; }
+
+URL="${1:-}"
+[[ -z $URL ]] && URL="$(cat "$CFG/last" 2>/dev/null || true)"
+[[ -n $URL ]] || { echo "no playlist url given and none saved (pass one the first time)"; exit 1; }
+printf '%s\n' "$URL" > "$CFG/last"
+
+# Engage the lock (helper does all root-side prep) then start playing.
+sudo /usr/local/bin/focus-lock on "$SECS"
+setsid mpv --no-terminal --really-quiet \
+  --ytdl-format="bestvideo[height<=1080]+bestaudio/best" \
+  "$URL" >/dev/null 2>&1 &
+
+echo "[focus] LOCKED $(( SECS/60 ))m — playing playlist in mpv. Only YouTube + Claude reachable; browsers/chat killed. 'focus off' to end early."

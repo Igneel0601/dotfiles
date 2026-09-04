@@ -28,7 +28,7 @@
     "tray": {
         "autostart": true,
         "autostart_delay": 0,
-        "icon": "img/tray/light/polychromatic.svg",
+        "icon": "/home/archVaibhav/.local/share/icons/custom/razer.svg",
         "mode": 0
     }
 }

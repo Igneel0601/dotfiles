@@ -13,8 +13,13 @@ declare -A TARGETS=(
     ["Kvantum/main.svg"]="theming/.config/Kvantum/main/main.svg"
     ["kde/kdeglobals"]="theming/.config/kdeglobals"
     ["dunst/dunstrc"]="desktop/.config/matugen/templates/dunstrc"
+    ["satty/config.toml"]="apps/.config/satty/config.toml"
+    ["gtk-4.0/gtk.css"]="theming/.config/gtk-4.0/gtk.css"
+    ["gtk-4.0/gtk-dark.css"]="theming/.config/gtk-4.0/gtk-dark.css"
+    ["gtk-4.0/assets"]="theming/.config/gtk-4.0/assets"
     ["icons/bluetooth.svg"]="theming/.local/share/icons/custom/bluetooth.svg"
     ["icons/razer.svg"]="theming/.local/share/icons/custom/razer.svg"
+    ["icons/spotify.svg"]="theming/.local/share/icons/custom/spotify.svg"
     ["icons/bluetooth-connected.svg"]="theming/.local/share/icons/custom/bluetooth-connected.svg"
     ["icons/bluetooth-off.svg"]="theming/.local/share/icons/custom/bluetooth-off.svg"
     ["icons/wifi-1.svg"]="theming/.local/share/icons/custom/wifi-1.svg"
@@ -54,7 +59,7 @@ switch_theme() {
         local source="$SCHEMES_DIR/$theme/$scheme_file"
         local target="$DOTFILES/${TARGETS[$scheme_file]}"
 
-        if [[ ! -f "$source" ]]; then
+        if [[ ! -e "$source" ]]; then
             echo "Warning: $source does not exist, skipping"
             continue
         fi
@@ -64,7 +69,7 @@ switch_theme() {
         local rel_path
         rel_path=$(realpath --relative-to="$target_dir" "$source")
 
-        ln -sf "$rel_path" "$target"
+        ln -sfn "$rel_path" "$target"
         echo "Linked: ${TARGETS[$scheme_file]} -> $rel_path"
     done
 
@@ -84,6 +89,20 @@ switch_theme() {
     # GTK theme
     local gtk_theme="${theme}-lavender-standard+default"
     gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
+
+    # VSCode settings.json from templates/code.tmpl with role substitution
+    local vscode_settings="$HOME/.config/Code/User/settings.json"
+    local vscode_tmpl="$DOTFILES/templates/code.tmpl"
+    local palette_file="$DOTFILES/palettes/$theme.json"
+    if [[ -f "$vscode_tmpl" && -f "$palette_file" ]]; then
+        local rendered
+        rendered=$(cat "$vscode_tmpl")
+        while IFS=$'\t' read -r role hex; do
+            rendered="${rendered//\{\{${role}\}\}/$hex}"
+        done < <(jq -r '.roles | to_entries[] | "\(.key)\t\(.value)"' "$palette_file")
+        mkdir -p "$(dirname "$vscode_settings")"
+        echo "$rendered" > "$vscode_settings"
+    fi
 
     # Regenerate templated files (dunstrc) + fire matugen post-hooks
     if [[ -f "$HOME/.cache/wall" ]]; then

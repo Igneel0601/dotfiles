@@ -1,0 +1,243 @@
+/* Sticky note widget styles.
+ *
+ * Tokens transcribed from the "Sticky Note Widget" Claude Design project.
+ * Geometry lives in types/sticky_types.ts and is applied as widget properties,
+ * since it has to be derived from the sibling widgets rather than hardcoded.
+ *
+ * Keep this file ASCII: app.ts concatenates the widget stylesheets, and any
+ * non-ASCII makes sass emit a leading @charset that GTK then rejects.
+ */
+
+@use "../surface" as *;
+
+$accent: #e78ba0;
+/* The design's own hover accent. */
+$accent-bright: #f0a6b8;
+
+/* Same tokens the info and battery cards use, so the three read as one set. */
+$fg: #{"@theme_fg_color"};
+$bg: #{"@theme_bg_color"};
+$border-color: #{"alpha(@theme_fg_color, 0.12)"};
+
+window.StickyWidget {
+  background: transparent;
+
+  .header {
+    padding: 13px 18px;
+  }
+
+  box.dot {
+    min-width: 9px;
+    min-height: 9px;
+    border-radius: 50%;
+    background: $accent;
+  }
+
+  label.file {
+    font-family: monospace;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  label.meta {
+    font-family: monospace;
+    font-weight: 500;
+    font-size: 10px;
+  }
+
+  /* GTK buttons ship with their own background, shadow and min-size, so those
+   * are cleared and the outline redrawn in the accent. Like box.dot, this is
+   * surface-independent - the accent does not change with the surface.
+   * The hand cursor is set in sticky.tsx: GTK has no CSS `cursor` property,
+   * it is a widget property. */
+  button.ai {
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    color: $accent;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 13px;
+  }
+
+  button.ai:hover {
+    color: $accent-bright;
+  }
+
+  scrolledwindow.body-scroll {
+    background: transparent;
+  }
+
+  textview.body {
+    background: transparent;
+    font-weight: 400;
+    /* The design asks for 1.85, which spends 46% of the note's height on
+     * whitespace and caps it at ~15 lines. 1.5 still reads airy but fits ~19,
+     * which is the difference between a tidy that fits and one that does not.
+     * Mirrored by STICKY_LINE_HEIGHT in types/sticky_types.ts, which the fit
+     * budget needs - keep the two equal.
+     * The inner padding is set as TextView margins in sticky.tsx, not here, so
+     * the fit measurement can subtract the exact rendered value. */
+    line-height: 1.5;
+    caret-color: $accent;
+
+    /* GTK draws the text itself on a child node, which keeps its own
+     * background unless it is cleared too. */
+    > text {
+      background: transparent;
+    }
+  }
+
+  /* --- Pager ---------------------------------------------------------- *
+   * Arrows and dots share the note's muted foreground; the active dot takes
+   * the accent, like box.dot in the header - surface-independent. Colours here
+   * are the white-on-dark defaults (glass, ink); paper overrides them below. */
+
+  /* Footer bar mirrors the header: a top border (set per-surface, like the
+   * header's bottom border) plus padding. */
+  box.footer {
+    padding: 9px 18px;
+  }
+
+  box.pager {
+    /* padding lives on the footer now */
+  }
+
+  /* The arrows are proper buttons: a rounded glass chrome that lights on hover,
+   * so they read as pressable rather than as plain glyphs. */
+  button.pager-arrow {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+    outline: none;
+    min-width: 26px;
+    min-height: 26px;
+    padding: 0;
+    margin: 0;
+    border-radius: 8px;
+    font-family: sans-serif;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.55);
+    transition: background 150ms, color 150ms, border-color 150ms;
+  }
+
+  button.pager-arrow:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+  }
+
+  button.pager-arrow:disabled {
+    opacity: 0.3;
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  button.pager-dot {
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    box-shadow: none;
+    outline: none;
+    min-width: 7px;
+    min-height: 7px;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    transition: background 150ms;
+  }
+
+  button.pager-dot:hover { background: rgba(255, 255, 255, 0.55); }
+  button.pager-dot.active { background: $accent; }
+
+  /* --- Surfaces ------------------------------------------------------- */
+
+  /* The design's Ink surface is a hardcoded gradient (#20212e -> #191a24) on a
+   * flat-black mock. Against the real info and battery cards, which are a flat
+   * @theme_bg_color, that gradient reads as a mismatch: it starts close but
+   * drifts visibly darker down the note's height. So Ink is bound to the same
+   * theme tokens as its siblings instead - matching the design's intent (the
+   * dark surface) rather than its literal values, and following the tokens over
+   * hardcoded colors. The alpha ratios below are still the design's. */
+  box.note.surface-ink {
+    background: $bg;
+    border: 1px solid $border-color;
+    border-radius: 1rem;
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.5);
+    color: $fg;
+
+    .header { border-bottom: 1px solid #{"alpha(@theme_fg_color, 0.06)"}; }
+    box.footer { border-top: 1px solid #{"alpha(@theme_fg_color, 0.06)"}; }
+    label.file { color: #{"alpha(@theme_fg_color, 0.7)"}; }
+    label.meta { color: #{"alpha(@theme_fg_color, 0.3)"}; }
+    textview.body, textview.body > text { color: #{"alpha(@theme_fg_color, 0.82)"}; }
+  }
+
+  box.note.surface-paper {
+    background: linear-gradient(160deg, #f6e6a2, #ecd587);
+    border: 1px solid rgba(90, 70, 20, 0.18);
+    border-radius: 6px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    color: rgba(48, 40, 18, 0.92);
+
+    .header { border-bottom: 1px solid rgba(90, 70, 20, 0.16); }
+    box.footer { border-top: 1px solid rgba(90, 70, 20, 0.16); }
+    label.file { color: rgba(68, 54, 16, 0.85); }
+    label.meta { color: rgba(68, 54, 16, 0.5); }
+    textview.body, textview.body > text { color: rgba(48, 40, 18, 0.92); }
+
+    /* Dark pager on the light paper surface. */
+    button.pager-arrow {
+      background: rgba(68, 54, 16, 0.08);
+      border-color: rgba(68, 54, 16, 0.16);
+      color: rgba(68, 54, 16, 0.6);
+    }
+    button.pager-arrow:hover {
+      background: rgba(68, 54, 16, 0.15);
+      border-color: rgba(68, 54, 16, 0.3);
+      color: rgba(48, 40, 18, 0.95);
+    }
+    button.pager-dot { background: rgba(68, 54, 16, 0.3); }
+    button.pager-dot:hover { background: rgba(68, 54, 16, 0.6); }
+  }
+
+  /* The design's Glass surface leans on backdrop-filter, which GTK has no
+   * equivalent for. The translucency lands, but the blur behind it has to come
+   * from the compositor, e.g. a Hyprland `layerrule = blur, sticky`. */
+  box.note.surface-glass {
+    background: $glass-bg;
+    border: 1px solid $glass-border;
+    border-radius: $glass-radius;
+    box-shadow: 0 14px 44px rgba(0, 0, 0, 0.45);
+    color: rgba(255, 255, 255, 0.92);
+
+    .header { border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+    box.footer { border-top: 1px solid rgba(255, 255, 255, 0.12); }
+    label.file { color: rgba(255, 255, 255, 0.85); }
+    label.meta { color: rgba(255, 255, 255, 0.45); }
+    textview.body, textview.body > text { color: rgba(255, 255, 255, 0.92); }
+  }
+
+  /* --- Typefaces ------------------------------------------------------ */
+
+  /* A ligature font, so "-->" is drawn as a real arrow while staying three
+   * plain characters in scratch.md. Bare `monospace` resolves to Noto Sans
+   * Mono here, which has no ligatures and renders the dashes literally. */
+  box.note.type-mono textview.body {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;
+  }
+
+  box.note.type-handwritten textview.body {
+    font-family: cursive;
+    font-size: 17px;
+  }
+
+  box.note.type-sans textview.body {
+    font-family: sans-serif;
+    font-size: 14px;
+  }
+}

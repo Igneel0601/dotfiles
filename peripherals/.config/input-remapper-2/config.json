@@ -1,7 +1,7 @@
 {
-    "version": "2.2.0",
+    "version": "2.2.1",
     "autoload": {
         "Razer Razer Basilisk V3": "Buttons 4 and 5",
-        "Razer Razer BlackWidow V4": "macros"
+        "Razer Razer BlackWidow V4": "macros copy"
     }
 }

@@ -1,6 +1,9 @@
 {
   "tray": {
     //   "icon-size": 20,
-      "spacing": 10
+      "spacing": 10,
+      "icons": {
+        "spotify-client": "/home/archVaibhav/.local/share/icons/custom/spotify.svg"
+      }
   }
 }

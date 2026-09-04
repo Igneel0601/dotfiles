@@ -1,0 +1,279 @@
+/* Study dashboard styles.
+ *
+ * Tokens from the "Study Dashboard" Claude Design project, but the card itself
+ * uses the shared glass surface (like the note and pomodoro) rather than the
+ * design's gradient, so the four cards read as one set. Geometry lives in
+ * types/study_types.ts.
+ *
+ * Keep this file ASCII: app.ts concatenates the widget stylesheets, and any
+ * non-ASCII makes sass emit a leading @charset that GTK then rejects.
+ */
+
+@use "../surface" as *;
+
+$accent: #e78ba0;
+$text: #eef0f4;
+
+window.StudyWidget {
+  background: transparent;
+
+  box.study-card {
+    background: $glass-bg;
+    border: 1px solid $glass-border;
+    border-radius: $glass-radius;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  }
+
+  /* --- left: countdown -------------------------------------------------- */
+
+  box.countdown {
+    min-width: 290px;
+    padding: 18px 32px;
+  }
+
+  label.cd-heading {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  /* Days-left view (scrolled in): the big figure counting to the learning-phase
+   * end. Dead ascent is clipped by the .cd-number-clip ScrolledWindow. */
+  label.cd-number {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 140px;
+    font-weight: 700;
+    letter-spacing: -3px;
+    color: $accent;
+    font-variant-numeric: tabular-nums;
+  }
+
+  label.cd-days {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 8px;
+  }
+
+  box.cd-target-dot {
+    min-width: 7px;
+    min-height: 7px;
+    border-radius: 2px;
+    background: $accent;
+  }
+
+  label.cd-target-label {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.4);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Phase position "1/8", quiet counter beside the heading. */
+  label.ph-count {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.3);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Hero: the phase id, big - the left column's main figure now. Same mono
+   * family as the pomodoro digits so the desktop reads as one set. */
+  label.ph-hero {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 58px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: $accent;
+  }
+
+  label.ph-drift {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-variant-numeric: tabular-nums;
+
+    /* Behind = warm alarm; on track = green; before the window / done = calm. */
+    &.behind { color: #e0688a; }
+    &.ontrack { color: #86cf98; }
+    &.ahead { color: rgba(255, 255, 255, 0.42); }
+    &.done { color: #86cf98; }
+  }
+
+  label.ph-topic {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  /* A menubutton paints its inner `button` node, so the pill chrome lives there
+   * (see the pomodoro reset-btn note); the outer node is made transparent. */
+  menubutton.ph-done {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  menubutton.ph-done > button {
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.72);
+    transition: background 160ms, color 160ms, border-color 160ms;
+  }
+
+  menubutton.ph-done > button:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+  }
+
+  /* Confirm popover for marking a phase done. */
+  popover.confirm > contents {
+    background: #20212e;
+    border: 1px solid $glass-border;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
+  }
+
+  label.confirm-title {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  label.confirm-text {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  box.confirm-box button {
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 7px 15px;
+    border-radius: 8px;
+    border: none;
+    box-shadow: none;
+  }
+
+  button.confirm-cancel {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  button.confirm-ok {
+    background: $accent;
+    color: #14151d;
+  }
+
+  /* --- divider ---------------------------------------------------------- */
+
+  box.study-divider {
+    min-width: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 28px 0;
+  }
+
+  /* --- right: heatmap --------------------------------------------------- */
+
+  box.heatmap {
+    padding: 26px 40px;
+  }
+
+  label.hm-title {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  label.hm-range {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.28);
+  }
+
+  label.hm-weekday {
+    min-width: 14px;
+    min-height: 16px;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.28);
+  }
+
+  label.hm-month {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.34);
+  }
+
+  box.hm-cell {
+    min-width: 16px;
+    min-height: 16px;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  }
+
+  box.hm-cell.future {
+    opacity: 0.35;
+  }
+
+  box.hm-cell.l0 { background: rgba(255, 255, 255, 0.05); }
+  box.hm-cell.l1 { background: rgba(231, 139, 160, 0.28); }
+  box.hm-cell.l2 { background: rgba(231, 139, 160, 0.5); }
+  box.hm-cell.l3 { background: rgba(231, 139, 160, 0.75); }
+  box.hm-cell.l4 { background: $accent; }
+
+  /* --- footer: stats + legend ------------------------------------------- */
+
+  label.hm-stat {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.4);
+    font-variant-numeric: tabular-nums;
+  }
+
+  label.hm-legend-cap {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.34);
+  }
+
+  box.hm-legend-cell {
+    min-width: 12px;
+    min-height: 12px;
+    border-radius: 3px;
+  }
+}

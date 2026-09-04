@@ -1,0 +1,8 @@
+{
+  "custom/razer_mouse": {
+        "exec": "mouse_battery.sh",
+        "format": "{icon}{text}",     
+        "return-type": "json",
+        "interval": 2
+  }
+}

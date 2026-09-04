@@ -1,0 +1,78 @@
+/* Battery widget styles */
+@use "../surface" as *;
+
+$fg: #{"@theme_fg_color"};
+$gauge-bg: #{"alpha(@theme_fg_color, 0.06)"};
+
+window.BatteryWidget {
+  background: transparent;
+  color: $fg;
+
+  > box.card {
+    background: $glass-bg;
+    border-radius: $glass-radius;
+    margin: 0.5rem;
+    padding: 0.375rem;
+    border: 1px solid $glass-border;
+  }
+
+  box.row {
+    min-width: 0;
+    padding: 0.125rem;
+  }
+
+  box.single-grid {
+    min-width: 8.4rem;
+    min-height: 8.4rem;
+    padding: 0.125rem;
+  }
+
+  box.single-grid > box.row {
+    min-height: 4.125rem;
+  }
+
+  box.single-grid > box.row > overlay.gauge {
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  box.percentage-cell {
+    min-width: 4rem;
+    min-height: 4rem;
+    margin: 0.125rem;
+    padding: 0;
+    background: transparent;
+  }
+
+  label.single-percentage {
+    font-size: 3.6rem;
+    font-weight: 500;
+    margin-left: 0;
+    margin-top: 0;
+    padding:8px;
+  }
+
+  box.gauge {
+    min-width: 4rem;
+    min-height: 4rem;
+    padding: 0;
+    margin: 0.125rem;
+    background: $gauge-bg;
+    border-radius: 999px;
+  }
+
+  drawingarea.ring {
+    min-width: 3.75rem;
+    min-height: 3.75rem;
+    margin: -0.125rem;
+  }
+
+  label.gauge-text {
+    font-size: 2.5rem;
+    font-weight: 400;
+    padding: 0;
+    margin-right: 0.25rem;
+    margin-bottom: 0.125rem;
+    -gtk-icon-transform: scale(1.0) translate(0, 0);
+  }
+}

@@ -1,0 +1,624 @@
+/* Pomodoro widget styles.
+ *
+ * Tokens from the "Pomodoro Widget" Claude Design project. Geometry lives in
+ * types/pomodoro_types.ts and is applied as widget properties.
+ *
+ * Keep this file ASCII: app.ts concatenates the widget stylesheets, and any
+ * non-ASCII makes sass emit a leading @charset that GTK then rejects.
+ */
+
+@use "../surface" as *;
+
+$focus: #e78ba0;
+$short: #74c7d6;
+$long: #c3a8e0;
+
+$ink: #191a24;
+$digit-fg: #eef0f4;
+
+window.PomodoroWidget {
+  background: transparent;
+
+  box.panel {
+    /* The design gives the panel its own gradient and a 26px radius, drawn
+     * against a flat mock. Beside the real info, battery and sticky cards -
+     * which are flat glass at 1rem - that reads as a different material. Same
+     * call as the note: the shared tokens win over the design's literals, so
+     * the four cards are one set.
+     * The design's backdrop-filter has no GTK equivalent either; the blur comes
+     * from the compositor via a layerrule on this window's namespace. */
+    background: $glass-bg;
+    border: 1px solid $glass-border;
+    border-radius: $glass-radius;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    padding: 28px 46px;
+  }
+
+  /* Fullscreen is opaque - no desktop bleeding through the glass, no rounded
+   * corners or shadow against the screen edge. */
+  box.panel.fullscreen {
+    background: #14151d;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* Lights-out goes all the way to black: only the clock is left. */
+  box.panel.lights-out {
+    background: #000000;
+  }
+
+  /* With the clock alone on a black 1440-wide canvas, the windowed size floats
+   * tiny. Scale it up to own the screen. 1.5x keeps the widest layout
+   * (H:MM:SS, ~866px) near 1300px - full but clear of the edges. transform is a
+   * render-only scale (no reflow), and composes with the leaves' own scaleY, so
+   * the flip still animates correctly. Origin is centre, so it grows in place. */
+  box.panel.lights-out box.clock {
+    transform: scale(1.5);
+  }
+
+  /* --- task title ------------------------------------------------------ */
+
+  label.task-title {
+    margin-bottom: 20px;
+  }
+
+  label.task-title.set {
+    font-family: sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: #f2f3f7;
+  }
+
+  label.task-title.empty {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  /* --- mode pills ------------------------------------------------------ */
+
+  box.phases {
+    margin: 24px;
+  }
+
+  /* Circles in the top-left corner, not the design's big centre pills. The
+   * switcher is the least-used control here - the timer auto-advances - and it
+   * was the loudest thing after the digits while restating what the accent and
+   * the dots already say. Out of the centre stack, the panel reads as clock,
+   * task, go. */
+  /* A button now: tapping one jumps to that phase. Only live while the clock is
+   * stopped - running, it drops back to the flat indicator it used to be. */
+  button.pill {
+    font-family: sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 26px;
+    min-height: 26px;
+    padding: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+    transition: background 160ms, color 160ms, border-color 160ms;
+  }
+
+  button.pill:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+  }
+
+  /* Insensitive while running: no hover, no dimming beyond the resting look -
+   * it is still the phase marker, just not a control. */
+  button.pill:disabled {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  /* --- tally dots ------------------------------------------------------ */
+
+  box.dots {
+    margin-bottom: 22px;
+  }
+
+  box.dot {
+    min-width: 8px;
+    min-height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+    transition: background 200ms;
+  }
+
+  /* Flow mode hides the tally but keeps its footprint, so the clock does not
+   * shift up when switching modes. */
+  box.dots.ghost {
+    opacity: 0;
+  }
+
+  /* --- flip clock ------------------------------------------------------ */
+
+  box.clock {
+    margin-bottom: 16px;
+  }
+
+  /* The leaves fold about the seam rather than rotating in 3D.
+   *
+   * The design's rotateX flip cannot work here. A leaf is an overflow:hidden
+   * clipper (it has to be - that is what shows half a glyph), and an
+   * overflow-hidden element flattens its 3D context; on top of that GTK has no
+   * `backface-visibility`, so a leaf parked at 90deg renders as a mirrored
+   * sliver instead of vanishing, and z-order never re-sorts as it turns. That
+   * combination is what left the old digit's bottom half showing until the
+   * settle timer snapped it away.
+   *
+   * scaleY has none of those problems: there is no back face to show, no 3D
+   * context to flatten, and the fold reads as a flip against the seam and the
+   * two gradients. The top leaf folds away in the first half, revealing the new
+   * top beneath; the new bottom unfolds over the old one in the second. */
+  /*
+   * Two halves of ONE motion, sequenced by a real delay.
+   *
+   * The obvious version - one 420ms animation per leaf, each holding still for
+   * half its keyframes - does not work. A cubic-bezier remaps the WHOLE
+   * timeline before the keyframes are read, so "scaleY(0) at 50%" does not land
+   * at t=210ms; it lands wherever the curve puts it. The two leaves then finish
+   * and start at different real times, leaving a gap between them: the card
+   * collapses, pauses, then expands. That gap is what reads as two flips.
+   *
+   * Each leaf instead owns half the duration, and the bottom simply waits.
+   * `both` fill is essential: without it the bottom leaf sits at its natural
+   * scaleY(1) during the delay and flashes the new digit before its turn.
+   *
+   * The curves are complementary halves of one fall - the top accelerates away,
+   * the bottom decelerates in - so they read as a single card dropping.
+   */
+  @keyframes fold-away {
+    from { transform: scaleY(1); }
+    to { transform: scaleY(0); }
+  }
+
+  @keyframes fold-in {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+
+  .half.leaf.top.flipping {
+    transform-origin: 50% 100%;
+    animation: fold-away 210ms cubic-bezier(0.45, 0, 1, 0.55) forwards;
+  }
+
+  .half.leaf.bottom.flipping {
+    transform-origin: 50% 0%;
+    animation: fold-in 210ms 210ms cubic-bezier(0, 0.45, 0.55, 1) both;
+  }
+
+  /* The halves are ScrolledWindows used purely as clippers, so their own
+   * chrome has to go and the gradient sits on the outer node. */
+  .half > viewport,
+  .half scrollbar {
+    background: transparent;
+    border: none;
+  }
+
+  .half {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  .half.top {
+    background: linear-gradient(180deg, #34364a, #2a2c3b);
+    border-radius: 14px 14px 0 0;
+  }
+
+  .half.bottom {
+    background: linear-gradient(180deg, #212330, #191b25);
+    border-radius: 0 0 14px 14px;
+  }
+
+  label.glyph {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 150px;
+    font-weight: 700;
+    color: $digit-fg;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  box.seam {
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  box.colon-dot {
+    min-width: 16px;
+    min-height: 16px;
+    border-radius: 50%;
+  }
+
+  /* --- state + play ---------------------------------------------------- */
+
+  /* The state used to be spelled out here (RUNNING / PAUSED); the play button
+   * already says which one, so this is just the gap that label held open. */
+  box.play-row {
+    margin-top: 24px;
+  }
+
+  /* Flow break's AI rationale - a quiet coach's line under the clock. */
+  label.break-note {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.42);
+  }
+
+  button.play {
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    padding: 15px 54px;
+    border-radius: 999px;
+    border: none;
+    color: $ink;
+  }
+
+  button.play:disabled {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.32);
+    box-shadow: none;
+  }
+
+  /* Reset - a quiet circular secondary next to the play button, shown only
+   * while paused. Subdued so it never competes with Start/Resume.
+   *
+   * A menubutton paints its inner `button` node, so the visible surface (size,
+   * radius, fill) must be set there - styling the outer node alone leaves the
+   * theme's rounded-square button showing through. */
+  menubutton.reset-btn,
+  menubutton.reset-btn > button {
+    min-width: 52px;
+    min-height: 52px;
+    padding: 0;
+    border-radius: 999px;
+    box-shadow: none;
+  }
+
+  menubutton.reset-btn {
+    background: transparent;
+    border: none;
+  }
+
+  menubutton.reset-btn > button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    transition: background 160ms, color 160ms, border-color 160ms;
+  }
+
+  menubutton.reset-btn > button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+  }
+
+  /* Confirm popover buttons. "This block" is the light-touch reset (neutral
+   * fill); "Whole session" wipes the sitting, so it carries the warm red;
+   * cancel stays quiet and reads as the safe default. */
+  box.confirm button {
+    font-family: sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 9px;
+    border: none;
+    box-shadow: none;
+  }
+
+  button.confirm-cancel {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  button.confirm-reset {
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+  }
+
+  button.confirm-reset.confirm-reset-hard {
+    background: #e06c75;
+    color: #14151d;
+  }
+
+  /* --- corner controls -------------------------------------------------- */
+
+  .icon-btn {
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0;
+    margin: 24px;
+    border-radius: 9px;
+    background: transparent;
+    border: 1px solid transparent;
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.4);
+    transition: background 160ms, color 160ms;
+  }
+
+  .icon-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  /* Setup controls (task / mood / settings) are greyed while the timer runs -
+   * they only take effect between sessions, so touching them mid-run is a
+   * footgun. Pause re-enables them. */
+  .icon-btn:disabled {
+    color: rgba(255, 255, 255, 0.14);
+    background: transparent;
+  }
+
+  box.corner .icon-btn {
+    margin: 0;
+  }
+
+  box.corner {
+    margin: 24px;
+  }
+
+  /* Bottom-left cluster: focus task + study playlist. Same inset as the corner,
+   * and the buttons drop their own 24px margin inside it. */
+  box.dock-cluster {
+    margin: 24px;
+  }
+
+  box.dock-cluster .icon-btn {
+    margin: 0;
+  }
+
+  /* Study-playlist play/stop buttons - ghost icons to match the underlined
+   * input; the play button carries the focus accent as the primary action. */
+  button.mpv-btn {
+    min-width: 30px;
+    min-height: 30px;
+    padding: 0;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.38);
+    transition: background 160ms, color 160ms;
+  }
+
+  button.mpv-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+  }
+
+  button.mpv-play {
+    color: $focus;
+  }
+
+  button.mpv-play:hover {
+    background: rgba(231, 139, 160, 0.16);
+    color: $focus;
+  }
+
+  /* --- popovers --------------------------------------------------------- */
+
+  popover > contents {
+    background: linear-gradient(160deg, #20212e, #191a24);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.6);
+    padding: 18px;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  popover > arrow {
+    background: transparent;
+    border: none;
+  }
+
+  /* The settings scroller is a fit-in-the-window cap only - no frame/background
+   * of its own; the popover contents already provide the surface. */
+  scrolledwindow.settings-scroll,
+  scrolledwindow.settings-scroll > viewport {
+    background: transparent;
+    border: none;
+  }
+
+  /* For the scrolled settings popover the padding moves OFF the contents (so the
+   * scrollbar sits flush to the right edge) and ONTO the inner body instead. */
+  popover.settings-scrolled > contents {
+    padding: 0;
+  }
+
+  box.settings-body {
+    padding: 18px;
+  }
+
+  label.dock-title {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.42);
+  }
+
+  label.dock-subtitle {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.34);
+  }
+
+  label.dock-hint {
+    font-family: sans-serif;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.34);
+  }
+
+  entry.task-entry {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.72);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 0;
+    box-shadow: none;
+    padding: 7px 3px;
+    min-width: 260px;
+  }
+
+  entry.task-entry:disabled {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 9px;
+    padding: 8px 12px;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  /* Keep the underline, drop GTK's purple full-box focus ring. GTK4 focuses the
+   * entry's inner text node, so the state is :focus-within, not :focus; the ring
+   * is an outline + box-shadow, and border-color keeps the underline calm. */
+  entry.task-entry:focus-within {
+    outline: none;
+    box-shadow: none;
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+
+  /* --- settings --------------------------------------------------------- */
+
+  box.setting-row {
+    min-width: 280px;
+  }
+
+  label.setting-label {
+    font-family: sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  box.stepper {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9px;
+  }
+
+  button.step {
+    min-width: 30px;
+    min-height: 30px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  button.step:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+  }
+
+  label.step-val,
+  entry.step-val {
+    min-width: 40px;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 15px;
+    font-weight: 600;
+    color: $digit-fg;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The value doubles as a text field; strip the entry chrome so it reads as
+   * the plain number it replaced, sitting between the +/- buttons. */
+  entry.step-val {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 2px 0;
+    caret-color: $digit-fg;
+  }
+
+  entry.step-val:focus {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+  }
+
+  button.chip {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 8px 10px;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  button.chip:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* Selected mood chip. */
+  button.chip.chip-active {
+    background: $focus;
+    color: $ink;
+    border-color: transparent;
+    font-weight: 700;
+  }
+
+  /* --- mood picker ------------------------------------------------------ */
+
+  /* One-line confirmation of what the tapped mood set. */
+  label.plan-result {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  box.divider {
+    min-height: 1px;
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  /* --- per-phase accents ------------------------------------------------
+   * GTK CSS has no variables we can set from TS, so the accent is switched by
+   * a class on the panel. */
+
+  box.panel.mode-focus {
+    button.pill.active { background: $focus; color: $ink; border-color: transparent; }
+    box.dot.filled { background: $focus; }
+    box.colon-dot { background: $focus; }
+    button.play { background: $focus; box-shadow: 0 10px 26px rgba(231, 139, 160, 0.33); }
+    switch:checked { background: $focus; }
+  }
+
+  box.panel.mode-short {
+    button.pill.active { background: $short; color: $ink; border-color: transparent; }
+    box.dot.filled { background: $short; }
+    box.colon-dot { background: $short; }
+    button.play { background: $short; box-shadow: 0 10px 26px rgba(116, 199, 214, 0.33); }
+    switch:checked { background: $short; }
+  }
+
+  box.panel.mode-long {
+    button.pill.active { background: $long; color: $ink; border-color: transparent; }
+    box.dot.filled { background: $long; }
+    box.colon-dot { background: $long; }
+    button.play { background: $long; box-shadow: 0 10px 26px rgba(195, 168, 224, 0.33); }
+    switch:checked { background: $long; }
+  }
+}

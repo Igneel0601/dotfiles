@@ -10,3 +10,20 @@
 	helper = cache
 [safe]
 	directory = /mnt/work/projects/nextjs-vibe
+	directory = /mnt/work/projects/Odoo-Hackathon-The-Knights
+	directory = /mnt/work/projects/niptao
+	directory = /mnt/work/projects/portfolio
+	directory = /mnt/work/projects/bloggz
+	directory = /mnt/work/projects/ppai
+	directory = /mnt/work/projects/interview-bot
+	directory = /mnt/work/projects/blogs
+	directory = /mnt/work/projects/blogs
+	directory = /mnt/work/projects/gist-mcp
+	directory = /mnt/work/projects/ppai/.claude/worktrees/wt-test-probe
+	directory = *
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential

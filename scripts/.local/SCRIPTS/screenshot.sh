@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Requirements: grimblast, slurp, satty (optional), wl-copy, tesseract (optional), imagemagick (optional)
+# Requirements: grimblast, slurp, swappy (optional), wl-copy, tesseract (optional), imagemagick (optional)
 
 USAGE() {
   echo "Usage: $(basename "$0") [option]"
@@ -21,9 +21,9 @@ mkdir -p "$save_dir"
 save_file="$(date +'%y%m%d_%Hh%Mm%Ss_screenshot.png')"
 
 # Config directory
-confDir="${XDG_CONFIG_HOME:-$HOME/.config}"
+confDir="${XDG_CONFIG_HOME:-$HOME/.config}"f
 
-# Annotation tool setup - default to satty
+# Annotation tool setup - default to swappy
 annotation_tool="${SCREENSHOT_ANNOTATION_TOOL:-satty}"
 annotation_args=("-o" "${save_dir}/${save_file}" "-f" "${temp_screenshot}")
 
@@ -31,6 +31,25 @@ annotation_args=("-o" "${save_dir}/${save_file}" "-f" "${temp_screenshot}")
 if [[ "$annotation_tool" == "satty" ]]; then
   annotation_args+=("--copy-command" "wl-copy")
 fi
+
+run_annotation_tool() {
+  # swappy does not expose a fullscreen flag; on Hyprland, fullscreen the newly opened window.
+  if [[ "$annotation_tool" == "satty" ]] && [[ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]] && command -v hyprctl >/dev/null; then
+    "$annotation_tool" "${annotation_args[@]}" &
+    local annotation_pid=$!
+
+    # Try a few times in case the window is not yet mapped.
+    for _ in {1..10}; do
+      hyprctl dispatch fullscreen 1 >/dev/null 2>&1 && break
+      sleep 0.05
+    done
+
+    wait "$annotation_pid"
+    return $?
+  fi
+
+  "$annotation_tool" "${annotation_args[@]}"
+}
 
 # Use grimblast to take screenshot and annotate
 take_screenshot() {
@@ -40,7 +59,7 @@ take_screenshot() {
 
   # grimblast usage: extra args, then copysave, then mode, then output file
   if grimblast "${extra_args[@]}" copysave "$mode" "$temp_screenshot"; then
-    if ! "$annotation_tool" "${annotation_args[@]}"; then
+    if ! run_annotation_tool; then
       notify-send "Screenshot Error" "Failed to open annotation tool"
       return 1
     fi
